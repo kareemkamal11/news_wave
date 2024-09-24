@@ -10,4 +10,6 @@ class _AuthAssets {
   final String invisiblePassword = 'assets/auth/invisiblePassword.png';
   final String google = 'assets/auth/token/authGoogle.png';
   final String facebook = 'assets/auth/token/authFacebook.png';
+  final String takePhoto = 'assets/auth/profile/takePhoto.png';
+  final String emptyImage = 'assets/auth/profile/emptyImage.png';
 }

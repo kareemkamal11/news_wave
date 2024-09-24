@@ -1,9 +1,9 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:news_wave/auth/view/widgets/auth_custom_button.dart';
-import 'package:news_wave/auth/view/widgets/authentication_field.dart';
-import 'package:news_wave/auth/view/widgets/remember_me.dart';
+import 'package:news_wave/auth/view/widgets/auth_widget/auth_custom_button.dart';
+import 'package:news_wave/auth/view/widgets/auth_widget/authentication_field.dart';
+import 'package:news_wave/auth/view/widgets/auth_widget/remember_me.dart';
 import 'package:news_wave/core/static/app_texts.dart';
 
 class LoginBodyWidget extends StatefulWidget {
@@ -81,6 +81,7 @@ class _LoginBodyWidgetState extends State<LoginBodyWidget> {
           validator: (value) => passwordValidator(value),
           onChanged: (value) {},
           controller: passwordController,
+          isPassword: true,
         ),
         RememberMe(
           isRemember: isRemember,

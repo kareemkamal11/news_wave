@@ -1,9 +1,10 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:news_wave/auth/view/widgets/auth_custom_button.dart';
-import 'package:news_wave/auth/view/widgets/authentication_field.dart';
-import 'package:news_wave/auth/view/widgets/remember_me.dart';
+import 'package:news_wave/auth/view/widgets/auth_widget/auth_custom_button.dart';
+import 'package:news_wave/auth/view/widgets/auth_widget/authentication_field.dart';
+import 'package:news_wave/auth/view/widgets/auth_widget/remember_me.dart';
 import 'package:news_wave/core/static/app_texts.dart';
+
 
 class SignUpBodyWidget extends StatefulWidget {
   const SignUpBodyWidget({
@@ -92,6 +93,7 @@ class _SignUpBodyWidgetState extends State<SignUpBodyWidget> {
           validator: (value) => passwordValidator(value),
           onChanged: (value) {},
           controller: passwordController,
+          isPassword: true,
         ),
         const SizedBox(height: 10),
         AuthenticationField(
@@ -100,6 +102,7 @@ class _SignUpBodyWidgetState extends State<SignUpBodyWidget> {
           validator: (value) => confirmPasswordValidator(value),
           onChanged: (value) {},
           controller: confirmPasswordController,
+          isPassword: true,
         ),
         RememberMe(
           isRemember: isRemember,
@@ -110,7 +113,7 @@ class _SignUpBodyWidgetState extends State<SignUpBodyWidget> {
             });
           },
         ),
-        const SizedBox(height: 25),
+        const SizedBox(height: 15),
         AuthCustomButton(
           onPressed: submitForm,
           label: AppTexts.auth.signup,

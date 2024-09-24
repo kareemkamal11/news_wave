@@ -9,6 +9,14 @@ class _AuthTexts {
   final String facebook = 'Facebook';
   final String google = 'Google';
 
+  final String next = 'Next';
+
+
+  final String fillProfile = 'Fill your Profile';
+
+  final String fullName = 'Full Name';
+  final String phone = 'Phone Number';
+
   final String createAccount = 'don?t have an account ?';
   final String haveAccount = 'Already have an account ?';
 
@@ -18,7 +26,7 @@ class _AuthTexts {
 
   final String email = 'Email';
   final String emailError = 'Invalid Email!';
-  
+
   final String username = 'Username';
   final String usernameError = 'Invalid Username!';
 

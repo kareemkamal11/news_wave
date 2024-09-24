@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_wave/core/static/app_assets.dart';
 import 'package:news_wave/core/static/app_styles.dart';
-import 'package:news_wave/core/static/app_texts.dart';
 
 class AuthenticationField extends StatefulWidget {
   final String? hintText;
@@ -12,6 +11,7 @@ class AuthenticationField extends StatefulWidget {
   final void Function()? clearText;
   final TextEditingController controller;
   final FocusNode focusNode;
+  final bool isPassword;
 
   const AuthenticationField({
     super.key,
@@ -23,6 +23,7 @@ class AuthenticationField extends StatefulWidget {
     required this.labelText,
     this.suffixIcon,
     required this.focusNode,
+    this.isPassword = false,
   });
 
   @override
@@ -30,36 +31,27 @@ class AuthenticationField extends StatefulWidget {
 }
 
 class _AuthenticationFieldState extends State<AuthenticationField> {
+  late bool obscureText;
   @override
   void initState() {
     super.initState();
-    widget.controller.addListener(() {
-      onTextChanged();
-    });
-    widget.focusNode.addListener(() {
-      onTextChanged();
-    });
+    widget.controller.addListener(onTextChanged);
+    widget.focusNode.addListener(onTextChanged);
+    obscureText = widget.isPassword;
   }
 
   @override
   void dispose() {
-    super.dispose();
+    widget.controller.removeListener(onTextChanged);
+    widget.focusNode.removeListener(onTextChanged);
     widget.controller.dispose();
     widget.focusNode.dispose();
-
-    widget.controller.removeListener(() {
-      onTextChanged();
-    });
-    widget.focusNode.removeListener(() {
-      onTextChanged();
-    });
+    super.dispose();
   }
 
   void onTextChanged() {
     setState(() {});
   }
-
-  bool obscureText = false;
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +103,7 @@ class _AuthenticationFieldState extends State<AuthenticationField> {
                         ),
                       )
                     : null)
-                : (widget.labelText == AppTexts.auth.password
+                : (widget.isPassword
                     ? TextButton(
                         onPressed: () {
                           setState(() {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:news_wave/auth/view/widgets/authentication_data_widget.dart';
+import 'package:news_wave/auth/view/widgets/auth_widget/authentication_data_widget.dart';
 import 'package:news_wave/core/static/app_assets.dart';
 import 'package:news_wave/core/static/app_styles.dart';
 

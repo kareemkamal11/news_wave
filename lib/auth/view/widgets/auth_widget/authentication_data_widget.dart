@@ -1,11 +1,11 @@
-
 import 'package:flutter/material.dart';
-import 'package:news_wave/auth/view/widgets/auth_token_body_widget.dart';
-import 'package:news_wave/auth/view/widgets/login_body_widget.dart';
-import 'package:news_wave/auth/view/widgets/sign_up_body_widget.dart';
+import 'package:news_wave/auth/view/widgets/auth_widget/auth_token_body_widget.dart';
+import 'package:news_wave/auth/view/widgets/auth_widget/login_body_widget.dart';
+import 'package:news_wave/auth/view/widgets/auth_widget/sign_up_body_widget.dart';
 import 'package:news_wave/core/static/app_assets.dart';
 import 'package:news_wave/core/static/app_styles.dart';
 
+import 'profile_screen.dart';
 
 class AuthenticationDataWidget extends StatefulWidget {
   const AuthenticationDataWidget({
@@ -32,6 +32,16 @@ class _AuthenticationDataWidgetState extends State<AuthenticationDataWidget> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (context) => const ProfileScreen(),
+                ),
+              );
+            },
+            child: const Icon(Icons.thermostat_sharp),
+          ),
           Image.asset(
             isSignup ? AppAssets.auth.signup : AppAssets.auth.login,
             width: 90,
@@ -49,7 +59,7 @@ class _AuthenticationDataWidgetState extends State<AuthenticationDataWidget> {
                     formKey: formKey,
                   ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 15),
           AuthTokenBodyWidget(
             gPressed: () {},
             fPressed: () {},

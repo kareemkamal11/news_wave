@@ -16,6 +16,7 @@ class AuthCustomButton extends StatelessWidget {
     return InkWell(
       onTap: onPressed,
       focusColor: Colors.transparent,
+      splashFactory: InkRipple.splashFactory, // ???? ????? ????? ??? ?????
       child: Container(
         width: 380,
         height: 50,
