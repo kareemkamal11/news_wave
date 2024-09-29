@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:news_wave/auth/view/widgets/auth_widget/auth_token_body_widget.dart';
 import 'package:news_wave/auth/view/widgets/auth_widget/login_body_widget.dart';
@@ -62,7 +63,16 @@ class _AuthenticationDataWidgetState extends State<AuthenticationDataWidget> {
           const SizedBox(height: 15),
           AuthTokenBodyWidget(
             gPressed: () {},
-            fPressed: () {},
+            fPressed: () {
+              AwesomeDialog(
+                context: context,
+                dialogType: DialogType.error,
+                animType: AnimType.bottomSlide,
+                title: 'Info',
+                desc: 'This feature is not available yet',
+                btnOkOnPress: () {},
+              ).show();
+            },
             isSignup: isSignup,
             onPressed: () {
               setState(() {

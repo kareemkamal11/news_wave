@@ -11,6 +11,8 @@ class _AuthTexts {
 
   final String next = 'Next';
 
+  String emailError = '';
+  String passwordError = '';
 
   final String fillProfile = 'Fill your Profile';
 
@@ -25,7 +27,6 @@ class _AuthTexts {
   final String forgotPassword = 'Forgot the password?';
 
   final String email = 'Email';
-  final String emailError = 'Invalid Email!';
 
   final String username = 'Username';
   final String usernameError = 'Invalid Username!';
@@ -35,5 +36,4 @@ class _AuthTexts {
 
   final String password = 'Password';
   final String rememberMe = 'Remember me ';
-  final String passwordError = 'Password error';
 }

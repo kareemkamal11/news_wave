@@ -1,5 +1,5 @@
-import 'dart:developer';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:news_wave/auth/view/widgets/auth_widget/auth_custom_button.dart';
 import 'package:news_wave/auth/view/widgets/auth_widget/authentication_field.dart';
@@ -32,12 +32,10 @@ class _LoginBodyWidgetState extends State<LoginBodyWidget> {
     if (value == null || value.isEmpty) {
       return 'Please enter your email';
     }
-    // Simple regex for email validation
-    final emailRegex = RegExp(
-        r'^[^@]+@[^@]+\.[^@]+'); // ???? ??????? ??? ???? ?? ???? ???? ????? ??? @ ?????? ?? ?????? ???? ?????? ??
+
+    final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
     if (!emailRegex.hasMatch(value)) {
-      // ??? ????? ??? ??? ???? ???? ????? ???????? ????? ??? ????? ???? ???? ??? ???????
-      return 'Please enter a valid email';
+      return AppTexts.auth.emailError;
     }
     return null;
   }
@@ -47,21 +45,33 @@ class _LoginBodyWidgetState extends State<LoginBodyWidget> {
       return 'Please enter your password';
     }
     if (value.length < 6) {
-      return 'Password must be at least 6 characters';
+      return AppTexts.auth.passwordError;
     }
     return null;
   }
 
-  void submitForm() {
+  Future<void> submitForm() async {
     if (widget.formKey.currentState?.validate() ?? false) {
-      // ??? ????? ??? ???? ?????? ????? ?? ??
-      // Form is valid, proceed with the login
-      log('Form is valid');
-    } else {
-      // Form is invalid, show errors
-      log('Form is invalid');
+      try {
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: emailController.text,
+          password: passwordController.text,
+        );
+      } on FirebaseAuthException catch (e) {
+        setState(() {
+          if (e.code == 'user-not-found') {
+            AppTexts.auth.emailError = 'No user found for that email.';
+          } else if (e.code == 'wrong-password') {
+            AppTexts.auth.passwordError = 'Wrong password provided.';
+          } else {
+            AppTexts.auth.emailError = 'Authentication failed. Please try again.';
+          }
+        });
+        widget.formKey.currentState?.validate();
+      }
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
