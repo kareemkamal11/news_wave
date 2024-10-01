@@ -20,13 +20,13 @@ class AuthToken extends StatelessWidget {
         CustomTokenButton(
           icon: AppAssets.auth.facebook,
           label: AppTexts.auth.facebook,
-          onPressed: gPressed,
+          onPressed: fPressed,
         ),
         const SizedBox(width: 20),
         CustomTokenButton(
           icon: AppAssets.auth.google,
           label: AppTexts.auth.google,
-          onPressed: fPressed,
+          onPressed: gPressed,
         ),
       ],
     );

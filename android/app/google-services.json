@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "556768373926",
+    "firebase_url": "https://news-wave-8a3c8-default-rtdb.firebaseio.com",
     "project_id": "news-wave-8a3c8",
     "storage_bucket": "news-wave-8a3c8.appspot.com"
   },
@@ -12,7 +13,20 @@
           "package_name": "com.example.news_wave"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "556768373926-pk2batme24c255nkkp6v3kmf5s80fh82.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.news_wave",
+            "certificate_hash": "98aba963f9910a412703f4c1dcef4a1a6cabf508"
+          }
+        },
+        {
+          "client_id": "556768373926-cmvs9fiqqncqa7cod3t0utv3fdhnuqj1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCUFQYY7iPiGgQgTYF6L9W_h5xL1naX_V8"
@@ -20,7 +34,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "556768373926-cmvs9fiqqncqa7cod3t0utv3fdhnuqj1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "556768373926-8ba3s467j6gs1l21ubfesobgijiimvg5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.newsWave"
+              }
+            }
+          ]
         }
       }
     }

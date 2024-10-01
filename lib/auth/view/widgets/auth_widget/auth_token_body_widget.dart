@@ -30,8 +30,8 @@ class AuthTokenBodyWidget extends StatelessWidget {
         ),
         const SizedBox(height: 20),
         AuthToken(
-          gPressed: () {},
-          fPressed: () {},
+          gPressed: gPressed,
+          fPressed: fPressed,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
