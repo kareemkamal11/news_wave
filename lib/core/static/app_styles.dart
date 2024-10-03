@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_toastr/flutter_toastr.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppStyles {
@@ -44,4 +45,15 @@ class _AuthStyles {
         fontSize: 18,
         fontWeight: FontWeight.w600,
       );
+
+  errorToastr(BuildContext context, String errorMessages) {
+    FlutterToastr.show(
+      errorMessages,
+      context,
+      duration: 3,
+      backgroundColor: Colors.red,
+      textStyle: const TextStyle(fontSize: 15, color: Colors.white),
+    );
+  }
+
 }
