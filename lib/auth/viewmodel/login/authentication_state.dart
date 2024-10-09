@@ -18,5 +18,4 @@ class AuthenticationRememberMe extends AuthenticationState {}
 
 class AuthenticationChangeFormType extends AuthenticationState {}
 
-class AuthenticationField extends AuthenticationState {}
-
+class AuthenticationError extends AuthenticationState {}

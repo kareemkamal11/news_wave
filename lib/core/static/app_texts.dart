@@ -11,9 +11,11 @@ class _AuthTexts {
 
   final String next = 'Next';
 
-  String? errorMessages;
+  String? authErrorMessages;
 
   final String fillProfile = 'Fill your Profile';
+
+  final String resetPassword = 'Reset Password';
 
   final String fullName = 'Full Name';
   final String phone = 'Phone Number';
@@ -24,6 +26,9 @@ class _AuthTexts {
   final String continueWith = 'or continue with';
 
   final String forgotPassword = 'Forgot the password?';
+
+  final String forgotPasswordMessage =
+      ' are you forgot your password? Enter your email address below to reset your password';
 
   final String email = 'Email';
 

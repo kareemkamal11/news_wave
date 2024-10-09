@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:news_wave/auth/view/screens/auth_screen.dart';
 import 'package:news_wave/core/static/app_assets.dart';
 import 'package:news_wave/core/static/app_styles.dart';
+import 'package:news_wave/database_helper.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -16,14 +17,19 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 2), () {
-      // add the navigation to the next screen
-      Navigator.of(context).pushReplacement(
+    _initializeApp();
+  }
+
+  Future<void> _initializeApp() async {
+    await DatabaseHelper.instance.database;
+    Future.delayed(
+      const Duration(seconds: 2),
+      () => Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (context) => const AuthScreen(),
         ),
-      );
-    });
+      ),
+    );
   }
 
   @override
@@ -31,8 +37,11 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       backgroundColor: AppStyles.primaryColor,
       body: Center(
-        child: Image.asset(AppAssets.logo,
-            width: 200, height: 150, ),
+        child: Image.asset(
+          AppAssets.logo,
+          width: 200,
+          height: 150,
+        ),
       ),
     );
   }

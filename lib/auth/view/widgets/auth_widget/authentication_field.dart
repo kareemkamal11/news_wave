@@ -10,8 +10,10 @@ class AuthenticationField extends StatefulWidget {
   final void Function(String)? onChanged;
   final void Function()? clearText;
   final TextEditingController controller;
-  final FocusNode focusNode;
+  final FocusNode? focusNode;
   final bool isPassword;
+  final TextInputType? keyboardType;
+  final int? maxLength;
 
   const AuthenticationField({
     super.key,
@@ -22,8 +24,10 @@ class AuthenticationField extends StatefulWidget {
     required this.controller,
     required this.labelText,
     this.suffixIcon,
-    required this.focusNode,
+    this.focusNode,
     this.isPassword = false,
+    this.keyboardType,
+    this.maxLength,
   });
 
   @override
@@ -36,17 +40,8 @@ class _AuthenticationFieldState extends State<AuthenticationField> {
   void initState() {
     super.initState();
     widget.controller.addListener(onTextChanged);
-    widget.focusNode.addListener(onTextChanged);
+    widget.focusNode!.addListener(onTextChanged);
     obscureText = widget.isPassword;
-  }
-
-  @override
-  void dispose() {
-    widget.controller.removeListener(onTextChanged);
-    widget.focusNode.removeListener(onTextChanged);
-    widget.controller.dispose();
-    widget.focusNode.dispose();
-    super.dispose();
   }
 
   void onTextChanged() {
@@ -89,7 +84,7 @@ class _AuthenticationFieldState extends State<AuthenticationField> {
               ),
             ),
             errorStyle: TextStyle(color: Colors.red.withOpacity(0.7)),
-            suffixIcon: widget.focusNode.hasFocus
+            suffixIcon: widget.focusNode!.hasFocus
                 ? (widget.controller.text.isNotEmpty
                     ? IconButton(
                         onPressed: () {
@@ -103,7 +98,7 @@ class _AuthenticationFieldState extends State<AuthenticationField> {
                         ),
                       )
                     : null)
-                : (widget.isPassword
+                :(widget.isPassword
                     ? TextButton(
                         onPressed: () {
                           setState(() {
@@ -122,6 +117,8 @@ class _AuthenticationFieldState extends State<AuthenticationField> {
           obscureText: obscureText,
           validator: widget.validator,
           onChanged: widget.onChanged,
+          keyboardType: widget.keyboardType,
+          maxLength: widget.maxLength,
         ),
       ],
     );

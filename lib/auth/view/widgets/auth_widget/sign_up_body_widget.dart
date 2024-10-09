@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:news_wave/auth/view/widgets/auth_widget/authentication_field.dart';
 import 'package:news_wave/core/static/app_texts.dart';
 
-class SignUpBodyWidget extends StatefulWidget {
+class SignUpBodyWidget extends StatelessWidget {
   const SignUpBodyWidget({
     super.key,
     required this.emailController,
@@ -11,6 +11,9 @@ class SignUpBodyWidget extends StatefulWidget {
     required this.emailFocusNode,
     required this.passwordFocusNode,
     required this.confirmPasswordFocusNode,
+    required this.emailValidator,
+    required this.passwordValidator,
+    required this.confirmPasswordValidator,
   });
 
   final TextEditingController emailController;
@@ -19,43 +22,9 @@ class SignUpBodyWidget extends StatefulWidget {
   final FocusNode emailFocusNode;
   final FocusNode passwordFocusNode;
   final FocusNode confirmPasswordFocusNode;
-
-  @override
-  State<SignUpBodyWidget> createState() => _SignUpBodyWidgetState();
-}
-
-class _SignUpBodyWidgetState extends State<SignUpBodyWidget> {
-  String? emailValidator(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Please enter your email';
-    }
-
-    final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
-    if (!emailRegex.hasMatch(value)) {
-      return 'Please enter a valid email';
-    }
-    return null;
-  }
-
-  String? passwordValidator(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Please enter your password';
-    }
-    if (value.length < 6) {
-      return 'Password must be at least 6 characters';
-    }
-    return null;
-  }
-
-  String? confirmPasswordValidator(value) {
-    if (value == null || value.isEmpty) {
-      return 'Please confirm your password';
-    }
-    if (value != widget.passwordController.text) {
-      return AppTexts.auth.confirmPasswordError;
-    }
-    return null;
-  }
+  final Function(String?) emailValidator;
+  final Function(String?) passwordValidator;
+  final Function(String?) confirmPasswordValidator;
 
   @override
   Widget build(BuildContext context) {
@@ -65,25 +34,25 @@ class _SignUpBodyWidgetState extends State<SignUpBodyWidget> {
           labelText: AppTexts.auth.email,
           validator: (value) => emailValidator(value),
           onChanged: (value) {},
-          controller: widget.emailController,
-          focusNode: widget.emailFocusNode,
+          controller: emailController,
+          focusNode: emailFocusNode,
         ),
         const SizedBox(height: 10),
         AuthenticationField(
           labelText: AppTexts.auth.password,
-          focusNode: widget.passwordFocusNode,
+          focusNode: passwordFocusNode,
           validator: (value) => passwordValidator(value),
           onChanged: (value) {},
-          controller: widget.passwordController,
+          controller: passwordController,
           isPassword: true,
         ),
         const SizedBox(height: 10),
         AuthenticationField(
           labelText: AppTexts.auth.confirmPassword,
-          focusNode: widget.confirmPasswordFocusNode,
+          focusNode: confirmPasswordFocusNode,
           validator: (value) => confirmPasswordValidator(value),
           onChanged: (value) {},
-          controller: widget.confirmPasswordController,
+          controller: confirmPasswordController,
           isPassword: true,
         ),
       ],

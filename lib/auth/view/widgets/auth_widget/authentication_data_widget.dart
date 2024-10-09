@@ -12,33 +12,12 @@ import 'package:news_wave/core/static/app_styles.dart';
 import 'package:news_wave/core/static/app_texts.dart';
 
 import 'auth_custom_button.dart';
-import 'profile_screen.dart';
 import 'remember_me.dart';
 
-class AuthenticationDataWidget extends StatefulWidget {
+class AuthenticationDataWidget extends StatelessWidget {
   const AuthenticationDataWidget({
     super.key,
   });
-
-  @override
-  State<AuthenticationDataWidget> createState() =>
-      _AuthenticationDataWidgetState();
-}
-
-class _AuthenticationDataWidgetState extends State<AuthenticationDataWidget> {
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-  final confirmPasswordController = TextEditingController();
-  final emailFocusNode = FocusNode();
-  final passwordFocusNode = FocusNode();
-  final confirmPasswordFocusNode = FocusNode();
-
-  final loginEmailController = TextEditingController();
-  final loginPasswordController = TextEditingController();
-  final loginEmailFocusNode = FocusNode();
-  final loginPasswordFocusNode = FocusNode();
-
-  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -52,37 +31,35 @@ class _AuthenticationDataWidgetState extends State<AuthenticationDataWidget> {
           decoration: AppStyles.auth.bodyDecoration,
           child: ListView(
             children: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                      builder: (context) => const ProfileScreen(),
-                    ),
-                  );
-                },
-                child: const Icon(Icons.thermostat_sharp),
-              ),
               Image.asset(
                 cubit.isSignup ? AppAssets.auth.signup : AppAssets.auth.login,
                 width: 90,
                 height: 40,
               ),
               Form(
-                key: formKey,
+                key: cubit.formKey,
                 child: cubit.isSignup
                     ? SignUpBodyWidget(
-                        emailController: emailController,
-                        passwordController: passwordController,
-                        confirmPasswordController: confirmPasswordController,
-                        emailFocusNode: emailFocusNode,
-                        passwordFocusNode: passwordFocusNode,
-                        confirmPasswordFocusNode: confirmPasswordFocusNode,
+                        emailController: cubit.emailController,
+                        passwordController: cubit.passwordController,
+                        confirmPasswordController:
+                            cubit.confirmPasswordController,
+                        emailFocusNode: cubit.emailFocusNode,
+                        passwordFocusNode: cubit.passwordFocusNode,
+                        confirmPasswordFocusNode:
+                            cubit.confirmPasswordFocusNode,
+                        emailValidator: cubit.emailValidator,
+                        passwordValidator: cubit.passwordValidator,
+                        confirmPasswordValidator:
+                            cubit.confirmPasswordValidator,
                       )
                     : LoginBodyWidget(
-                        emailController: loginEmailController,
-                        passwordController: loginPasswordController,
-                        emailFocusNode: loginEmailFocusNode,
-                        passwordFocusNode: loginPasswordFocusNode,
+                        emailController: cubit.loginEmailController,
+                        passwordController: cubit.loginPasswordController,
+                        emailFocusNode: cubit.loginEmailFocusNode,
+                        passwordFocusNode: cubit.loginPasswordFocusNode,
+                        emailValidator: cubit.emailValidator,
+                        passwordValidator: cubit.passwordValidator,
                       ),
               ),
               RememberMe(
@@ -94,18 +71,8 @@ class _AuthenticationDataWidgetState extends State<AuthenticationDataWidget> {
               AuthCustomButton(
                 onPressed: () {
                   !cubit.isSignup
-                      ? cubit.loginUser(
-                          context,
-                          emailController,
-                          passwordController,
-                          formKey,
-                        )
-                      : cubit.createNewUser(
-                          context,
-                          loginEmailController,
-                          loginPasswordController,
-                          formKey,
-                        );
+                      ? cubit.loginUser(context)
+                      : cubit.createNewUser(context);
                 },
                 label:
                     cubit.isSignup ? AppTexts.auth.signup : AppTexts.auth.login,
@@ -115,11 +82,7 @@ class _AuthenticationDataWidgetState extends State<AuthenticationDataWidget> {
                 gPressed: () => cubit.googleAuthentication(context),
                 fPressed: () => cubit.facebookAuthentication(context),
                 isSignup: cubit.isSignup,
-                onPressed: () {
-                  setState(() {
-                    cubit.isSignup = !cubit.isSignup;
-                  });
-                },
+                onPressed: () => cubit.toggleSignUp(),
               ),
             ],
           ),
@@ -128,3 +91,4 @@ class _AuthenticationDataWidgetState extends State<AuthenticationDataWidget> {
     );
   }
 }
+
