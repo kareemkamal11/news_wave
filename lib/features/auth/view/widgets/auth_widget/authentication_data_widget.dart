@@ -2,14 +2,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_wave/auth/view/widgets/auth_widget/auth_token_body_widget.dart';
-import 'package:news_wave/auth/view/widgets/auth_widget/login_body_widget.dart';
-import 'package:news_wave/auth/view/widgets/auth_widget/sign_up_body_widget.dart';
-import 'package:news_wave/auth/viewmodel/login/authentication_cubit.dart';
-import 'package:news_wave/auth/viewmodel/login/authentication_state.dart';
-import 'package:news_wave/core/static/app_assets.dart';
-import 'package:news_wave/core/static/app_styles.dart';
-import 'package:news_wave/core/static/app_texts.dart';
+import 'package:news_wave/features/auth/core/static/auth_style.dart';
+import 'package:news_wave/features/auth/core/static/auth_texts.dart';
+import 'package:news_wave/features/auth/view/widgets/auth_widget/auth_token_body_widget.dart';
+import 'package:news_wave/features/auth/view/widgets/auth_widget/login_body_widget.dart';
+import 'package:news_wave/features/auth/view/widgets/auth_widget/sign_up_body_widget.dart';
+import 'package:news_wave/features/auth/viewmodel/login/authentication_cubit.dart';
+import 'package:news_wave/features/auth/viewmodel/login/authentication_state.dart';
 
 import 'auth_custom_button.dart';
 import 'remember_me.dart';
@@ -28,11 +27,11 @@ class AuthenticationDataWidget extends StatelessWidget {
           width: double.infinity,
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           clipBehavior: Clip.antiAlias,
-          decoration: AppStyles.auth.bodyDecoration,
+          decoration: AuthStyles.bodyDecoration,
           child: ListView(
             children: [
               Image.asset(
-                cubit.isSignup ? AppAssets.auth.signup : AppAssets.auth.login,
+                cubit.isSignup ? AuthTexts.signup : AuthTexts.login,
                 width: 90,
                 height: 40,
               ),
@@ -75,7 +74,7 @@ class AuthenticationDataWidget extends StatelessWidget {
                       : cubit.createNewUser(context);
                 },
                 label:
-                    cubit.isSignup ? AppTexts.auth.signup : AppTexts.auth.login,
+                    cubit.isSignup ? AuthTexts.signup : AuthTexts.login,
               ),
               const SizedBox(height: 15),
               AuthTokenBodyWidget(

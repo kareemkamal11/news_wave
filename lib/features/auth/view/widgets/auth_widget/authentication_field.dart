@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:news_wave/core/static/app_assets.dart';
-import 'package:news_wave/core/static/app_styles.dart';
+import 'package:news_wave/features/auth/core/static/auth_assets.dart';
+import 'package:news_wave/features/auth/core/static/auth_style.dart';
 
 class AuthenticationField extends StatefulWidget {
   final String? hintText;
@@ -58,7 +58,7 @@ class _AuthenticationFieldState extends State<AuthenticationField> {
             children: [
               TextSpan(
                 text: widget.labelText,
-                style: AppStyles.auth.titleTextStyle,
+                style: AuthStyles.titleTextStyle,
               ),
               const TextSpan(
                 text: ' *',
@@ -79,7 +79,7 @@ class _AuthenticationFieldState extends State<AuthenticationField> {
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide(
-                color: AppStyles.auth.decorationFieldColor,
+                color: AuthStyles.decorationFieldColor,
                 width: 3,
               ),
             ),
@@ -98,7 +98,7 @@ class _AuthenticationFieldState extends State<AuthenticationField> {
                         ),
                       )
                     : null)
-                :(widget.isPassword
+                : (widget.isPassword
                     ? TextButton(
                         onPressed: () {
                           setState(() {
@@ -107,12 +107,12 @@ class _AuthenticationFieldState extends State<AuthenticationField> {
                         },
                         child: Image.asset(
                           obscureText
-                              ? AppAssets.auth.visiblePassword
-                              : AppAssets.auth.invisiblePassword,
+                              ? AuthAssets.visiblePassword
+                              : AuthAssets.invisiblePassword,
                         ),
                       )
                     : null),
-            focusedErrorBorder: AppStyles.auth.errorFieldBorder,
+            focusedErrorBorder: AuthStyles.errorFieldBorder,
           ),
           obscureText: obscureText,
           validator: widget.validator,

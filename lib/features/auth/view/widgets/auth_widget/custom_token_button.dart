@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:news_wave/core/static/app_styles.dart';
+import 'package:news_wave/features/auth/core/static/auth_style.dart';
 
 class CustomTokenButton extends StatelessWidget {
   final String icon;
@@ -25,7 +25,7 @@ class CustomTokenButton extends StatelessWidget {
             const EdgeInsets.only(top: 12, left: 16, right: 24, bottom: 12),
         clipBehavior: Clip.antiAlias,
         decoration: ShapeDecoration(
-          color: AppStyles.auth.buttonTokenColor,
+          color: AuthStyles.buttonTokenColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(6),
           ),
@@ -38,7 +38,7 @@ class CustomTokenButton extends StatelessWidget {
             const SizedBox(width: 10),
             Text(
               label,
-              style: AppStyles.auth.tokenTextStyle,
+              style: AuthStyles.tokenTextStyle,
             ),
           ],
         ),

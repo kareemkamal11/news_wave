@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:news_wave/auth/view/widgets/auth_widget/auth_token.dart';
-import 'package:news_wave/core/static/app_styles.dart';
-import 'package:news_wave/core/static/app_texts.dart';
+import 'package:news_wave/features/auth/core/static/auth_style.dart';
+import 'package:news_wave/features/auth/core/static/auth_texts.dart';
+import 'package:news_wave/features/auth/view/widgets/auth_widget/auth_token.dart';
 
 class AuthTokenBodyWidget extends StatelessWidget {
   const AuthTokenBodyWidget({
@@ -24,8 +24,8 @@ class AuthTokenBodyWidget extends StatelessWidget {
       children: [
         Center(
           child: Text(
-            AppTexts.auth.continueWith,
-            style: AppStyles.auth.titleTextStyle,
+            AuthTexts.continueWith,
+            style: AuthStyles.titleTextStyle,
           ),
         ),
         const SizedBox(height: 20),
@@ -38,15 +38,15 @@ class AuthTokenBodyWidget extends StatelessWidget {
           children: [
             Text(
               isSignup
-                  ? AppTexts.auth.haveAccount
-                  : AppTexts.auth.createAccount,
-              style: AppStyles.auth.titleTextStyle,
+                  ? AuthTexts.haveAccount
+                  : AuthTexts.createAccount,
+              style: AuthStyles.titleTextStyle,
             ),
             TextButton(
               onPressed: onPressed,
               child: Text(
-                !isSignup ? AppTexts.auth.signup : AppTexts.auth.login,
-                style: AppStyles.auth.clickTextStyle.copyWith(
+                !isSignup ? AuthTexts.signup : AuthTexts.login,
+                style: AuthStyles.clickTextStyle.copyWith(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),

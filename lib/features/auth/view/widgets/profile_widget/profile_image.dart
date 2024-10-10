@@ -4,7 +4,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:news_wave/core/static/app_assets.dart';
+import 'package:news_wave/features/auth/core/static/auth_assets.dart';
 
 class ProfileImage extends StatelessWidget {
   const ProfileImage({
@@ -28,7 +28,7 @@ class ProfileImage extends StatelessWidget {
                 image: DecorationImage(
                   image: displayImage == null
                       ? AssetImage(
-                          AppAssets.auth.emptyImage,
+                          AuthAssets.emptyImage,
                         )
                       : FileImage(
                           File(displayImage!.path),
@@ -60,7 +60,7 @@ class ProfileImage extends StatelessWidget {
                 image: DecorationImage(
                   image: displayImage == null
                       ? AssetImage(
-                          AppAssets.auth.emptyImage,
+                          AuthAssets.emptyImage,
                         )
                       : FileImage(
                           File(displayImage!.path),
@@ -89,7 +89,7 @@ class ProfileImage extends StatelessWidget {
                     side: BorderSide(width: 1, color: Color(0xFF0F8ACF)),
                   ),
                 ),
-                child: Image.asset(AppAssets.auth.takePhoto,
+                child: Image.asset(AuthAssets.takePhoto,
                     width: 20, height: 20),
               ),
             ),

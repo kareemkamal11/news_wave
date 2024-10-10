@@ -6,11 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:news_wave/auth/view/screens/profile_screen.dart';
+import 'package:news_wave/features/auth/core/static/auth_texts.dart';
+import 'package:news_wave/features/auth/view/screens/profile_screen.dart';
 import 'package:news_wave/core/static/app_styles.dart';
-import 'package:news_wave/core/static/app_texts.dart';
 import 'package:news_wave/database_helper.dart';
-import 'package:news_wave/home_screen.dart';
+import 'package:news_wave/features/home_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'authentication_state.dart';
 
@@ -75,6 +76,26 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     return null;
   }
 
+  completeProfile(context, email) {
+    DatabaseHelper.instance.emailFound(email).then((value) {
+      if (!value) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ProfileScreen(email: email),
+          ),
+        );
+      } else {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const HomeScreen(),
+          ),
+        );
+      }
+    });
+  }
+
   Future<void> googleAuthentication(
     BuildContext context,
   ) async {
@@ -101,38 +122,22 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
           await FirebaseAuth.instance.signInWithCredential(googleCredential);
       final String email = userCredential.user!.email ?? '';
 
-      if (userCredential.user != null) {
-        DatabaseHelper.instance.emailFound(email).then((value) {
-          if (!value) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ProfileScreen(email: email),
-              ),
-            );
-          } else {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const HomeScreen(),
-              ),
-            );
-          }
-        });
-        emit(AuthenticationWithToken());
-      }
+      completeProfile(context, email);
+
+      if (userCredential.user != null) {}
+      emit(AuthenticationWithToken());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'network-request-failed') {
-        AppTexts.auth.authErrorMessages =
+        AuthTexts.authErrorMessages =
             'Network error, please check your internet connection';
       } else if (e.code == 'too-many-requests') {
-        AppTexts.auth.authErrorMessages =
+        AuthTexts.authErrorMessages =
             'Too many requests, please try again later';
       } else {
-        AppTexts.auth.authErrorMessages =
+        AuthTexts.authErrorMessages =
             'An error occurred, please try again later';
       }
-      AppStyles.errorToastr(context, AppTexts.auth.authErrorMessages);
+      AppStyles.errorToastr(context, AuthTexts.authErrorMessages);
       emit(AuthenticationWithTokenField());
     }
   }
@@ -166,37 +171,22 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       final String email = userCredential.user!.email ?? '';
 
       if (userCredential.user != null) {
-        DatabaseHelper.instance.emailFound(email).then((value) {
-          if (!value) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ProfileScreen(email: email),
-              ),
-            );
-          } else {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const HomeScreen(),
-              ),
-            );
-          }
-        });
+        completeProfile(context, email);
+
         emit(AuthenticationWithToken());
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'network-request-failed') {
-        AppTexts.auth.authErrorMessages =
+        AuthTexts.authErrorMessages =
             'Network error, please check your internet connection';
       } else if (e.code == 'too-many-requests') {
-        AppTexts.auth.authErrorMessages =
+        AuthTexts.authErrorMessages =
             'Too many requests, please try again later';
       } else {
-        AppTexts.auth.authErrorMessages =
+        AuthTexts.authErrorMessages =
             'An error occurred, please try again later';
       }
-      AppStyles.errorToastr(context, AppTexts.auth.authErrorMessages);
+      AppStyles.errorToastr(context, AuthTexts.authErrorMessages);
       emit(AuthenticationWithTokenField());
     }
   }
@@ -210,18 +200,14 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       return;
     } else {
       try {
-        await FirebaseAuth.instance.signInWithEmailAndPassword(
+        final user = await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: loginEmailController.text,
           password: loginPasswordController.text,
         );
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const ProfileScreen(
-              email: '',
-            ),
-          ),
-        );
+
+        final email = user.user!.email.toString();
+        completeProfile(context, email);
+
         emit(AuthenticationWithEmail());
       } on FirebaseAuthException catch (e) {
         log(e.code);
@@ -229,19 +215,19 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
         log(e.message.toString());
 
         if (e.code == 'invalid-credential') {
-          AppTexts.auth.authErrorMessages =
+          AuthTexts.authErrorMessages =
               'Email or Password is incorrect!, please enter a valid email and password';
         } else if (e.code == 'network-request-failed') {
-          AppTexts.auth.authErrorMessages =
+          AuthTexts.authErrorMessages =
               'Network error, please check your internet connection';
         } else if (e.code == 'too-many-requests') {
-          AppTexts.auth.authErrorMessages =
+          AuthTexts.authErrorMessages =
               'Too many requests, please try again later';
         } else {
-          AppTexts.auth.authErrorMessages =
+          AuthTexts.authErrorMessages =
               'An error occurred, please try again later';
         }
-        AppStyles.errorToastr(context, AppTexts.auth.authErrorMessages!);
+        AppStyles.errorToastr(context, AuthTexts.authErrorMessages!);
         emit(AuthenticationError());
       }
     }
@@ -260,7 +246,6 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
         );
 
         final email = user.user!.email.toString();
-
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
@@ -273,23 +258,23 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
         log(e.toString());
         log(e.message.toString());
         if (e.code == 'invalid-email') {
-          AppTexts.auth.authErrorMessages = 'The email address is not valid.';
+          AuthTexts.authErrorMessages = 'The email address is not valid.';
         } else if (e.code == 'user-disabled') {
-          AppTexts.auth.authErrorMessages =
+          AuthTexts.authErrorMessages =
               'The user account has been disabled.';
         } else if (e.code == 'user-not-found') {
-          AppTexts.auth.authErrorMessages = 'The user account does not exist.';
+          AuthTexts.authErrorMessages = 'The user account does not exist.';
         } else if (e.code == 'wrong-password') {
-          AppTexts.auth.authErrorMessages = 'The password is invalid.';
+          AuthTexts.authErrorMessages = 'The password is invalid.';
         } else if (e.code == 'email-already-in-use') {
-          AppTexts.auth.authErrorMessages =
+          AuthTexts.authErrorMessages =
               'The email is already in use, please add different email';
         } else if (e.code == 'operation-not-allowed') {
-          AppTexts.auth.authErrorMessages = 'Operation is not allowed.';
+          AuthTexts.authErrorMessages = 'Operation is not allowed.';
         } else {
-          AppTexts.auth.authErrorMessages = 'An undefined Error happened.';
+          AuthTexts.authErrorMessages = 'An undefined Error happened.';
         }
-        AppStyles.errorToastr(context, AppTexts.auth.authErrorMessages!);
+        AppStyles.errorToastr(context, AuthTexts.authErrorMessages!);
         emit(AuthenticationSignUpError());
       }
     }
@@ -307,6 +292,10 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     loginPasswordController.dispose();
     loginEmailFocusNode.dispose();
     loginPasswordFocusNode.dispose();
+    // اريد حفظ قيمة ال isRemember في ال shared preferences
+    SharedPreferences.getInstance().then((prefs) {
+      prefs.setBool('isRemember', isRemember);
+    });
     debugPrint('AuthenticationCubit disposed');
     return super.close();
   }

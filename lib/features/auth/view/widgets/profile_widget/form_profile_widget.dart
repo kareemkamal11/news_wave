@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:news_wave/auth/view/widgets/auth_widget/authentication_field.dart';
-import 'package:news_wave/core/static/app_texts.dart';
+import 'package:news_wave/features/auth/core/static/auth_texts.dart';
+import 'package:news_wave/features/auth/view/widgets/auth_widget/authentication_field.dart';
 
 class FormProfileWidget extends StatelessWidget {
   final TextEditingController nameController;
@@ -37,7 +37,7 @@ class FormProfileWidget extends StatelessWidget {
           AuthenticationField(
             validator: (value) => nameValidator(value),
             controller: nameController,
-            labelText: AppTexts.auth.fullName,
+            labelText: AuthTexts.fullName,
             focusNode: nameFocusNode,
             keyboardType: TextInputType.name,
           ),
@@ -45,7 +45,7 @@ class FormProfileWidget extends StatelessWidget {
           AuthenticationField(
             validator: (value) => usernameValidator(value),
             controller: usernameController,
-            labelText: AppTexts.auth.username,
+            labelText: AuthTexts.username,
             focusNode: usernameFocusNode,
             keyboardType: TextInputType.name,
           ),
@@ -53,7 +53,7 @@ class FormProfileWidget extends StatelessWidget {
           AuthenticationField(
             validator: (value) => phoneNumberValidator(value),
             controller: phoneNumberController,
-            labelText: AppTexts.auth.phone,
+            labelText: AuthTexts.phone,
             focusNode: phoneNumberFocusNode,
             keyboardType: TextInputType.phone,
             maxLength: 11,
