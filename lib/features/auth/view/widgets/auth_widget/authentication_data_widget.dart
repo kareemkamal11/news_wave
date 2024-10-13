@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_wave/features/auth/core/static/auth_style.dart';
-import 'package:news_wave/features/auth/core/static/auth_texts.dart';
+import 'package:news_wave/core/static/app_styles.dart';
+import 'package:news_wave/core/static/app_texts.dart';
 import 'package:news_wave/features/auth/view/widgets/auth_widget/auth_token_body_widget.dart';
 import 'package:news_wave/features/auth/view/widgets/auth_widget/login_body_widget.dart';
 import 'package:news_wave/features/auth/view/widgets/auth_widget/sign_up_body_widget.dart';
@@ -27,11 +27,11 @@ class AuthenticationDataWidget extends StatelessWidget {
           width: double.infinity,
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           clipBehavior: Clip.antiAlias,
-          decoration: AuthStyles.bodyDecoration,
+          decoration: AppStyles.bodyDecoration,
           child: ListView(
             children: [
               Image.asset(
-                cubit.isSignup ? AuthTexts.signup : AuthTexts.login,
+                cubit.isSignup ? AppTexts.signup : AppTexts.login,
                 width: 90,
                 height: 40,
               ),
@@ -73,8 +73,7 @@ class AuthenticationDataWidget extends StatelessWidget {
                       ? cubit.loginUser(context)
                       : cubit.createNewUser(context);
                 },
-                label:
-                    cubit.isSignup ? AuthTexts.signup : AuthTexts.login,
+                label: cubit.isSignup ? AppTexts.signup : AppTexts.login,
               ),
               const SizedBox(height: 15),
               AuthTokenBodyWidget(
@@ -90,4 +89,3 @@ class AuthenticationDataWidget extends StatelessWidget {
     );
   }
 }
-

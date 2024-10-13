@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:news_wave/features/auth/core/static/auth_assets.dart';
-import 'package:news_wave/features/auth/core/static/auth_style.dart';
+import 'package:news_wave/core/static/app_assets.dart';
+import 'package:news_wave/core/static/app_styles.dart';
 
 class AuthenticationField extends StatefulWidget {
   final String? hintText;
@@ -58,7 +58,7 @@ class _AuthenticationFieldState extends State<AuthenticationField> {
             children: [
               TextSpan(
                 text: widget.labelText,
-                style: AuthStyles.titleTextStyle,
+                style: AppStyles.titleTextStyle,
               ),
               const TextSpan(
                 text: ' *',
@@ -79,7 +79,7 @@ class _AuthenticationFieldState extends State<AuthenticationField> {
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide(
-                color: AuthStyles.decorationFieldColor,
+                color: AppStyles.decorationFieldColor,
                 width: 3,
               ),
             ),
@@ -107,12 +107,12 @@ class _AuthenticationFieldState extends State<AuthenticationField> {
                         },
                         child: Image.asset(
                           obscureText
-                              ? AuthAssets.visiblePassword
-                              : AuthAssets.invisiblePassword,
+                              ? AppAssets.visiblePassword
+                              : AppAssets.invisiblePassword,
                         ),
                       )
                     : null),
-            focusedErrorBorder: AuthStyles.errorFieldBorder,
+            focusedErrorBorder: AppStyles.errorFieldBorder,
           ),
           obscureText: obscureText,
           validator: widget.validator,

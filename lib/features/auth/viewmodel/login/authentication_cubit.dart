@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:news_wave/features/auth/core/static/auth_texts.dart';
+import 'package:news_wave/core/static/app_texts.dart';
 import 'package:news_wave/features/auth/view/screens/profile_screen.dart';
 import 'package:news_wave/core/static/app_styles.dart';
 import 'package:news_wave/database_helper.dart';
@@ -128,16 +128,16 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       emit(AuthenticationWithToken());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'network-request-failed') {
-        AuthTexts.authErrorMessages =
+        AppTexts.authErrorMessages =
             'Network error, please check your internet connection';
       } else if (e.code == 'too-many-requests') {
-        AuthTexts.authErrorMessages =
+        AppTexts.authErrorMessages =
             'Too many requests, please try again later';
       } else {
-        AuthTexts.authErrorMessages =
+        AppTexts.authErrorMessages =
             'An error occurred, please try again later';
       }
-      AppStyles.errorToastr(context, AuthTexts.authErrorMessages);
+      AppStyles.errorToastr(context, AppTexts.authErrorMessages);
       emit(AuthenticationWithTokenField());
     }
   }
@@ -177,16 +177,16 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'network-request-failed') {
-        AuthTexts.authErrorMessages =
+        AppTexts.authErrorMessages =
             'Network error, please check your internet connection';
       } else if (e.code == 'too-many-requests') {
-        AuthTexts.authErrorMessages =
+        AppTexts.authErrorMessages =
             'Too many requests, please try again later';
       } else {
-        AuthTexts.authErrorMessages =
+        AppTexts.authErrorMessages =
             'An error occurred, please try again later';
       }
-      AppStyles.errorToastr(context, AuthTexts.authErrorMessages);
+      AppStyles.errorToastr(context, AppTexts.authErrorMessages);
       emit(AuthenticationWithTokenField());
     }
   }
@@ -215,19 +215,19 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
         log(e.message.toString());
 
         if (e.code == 'invalid-credential') {
-          AuthTexts.authErrorMessages =
+          AppTexts.authErrorMessages =
               'Email or Password is incorrect!, please enter a valid email and password';
         } else if (e.code == 'network-request-failed') {
-          AuthTexts.authErrorMessages =
+          AppTexts.authErrorMessages =
               'Network error, please check your internet connection';
         } else if (e.code == 'too-many-requests') {
-          AuthTexts.authErrorMessages =
+          AppTexts.authErrorMessages =
               'Too many requests, please try again later';
         } else {
-          AuthTexts.authErrorMessages =
+          AppTexts.authErrorMessages =
               'An error occurred, please try again later';
         }
-        AppStyles.errorToastr(context, AuthTexts.authErrorMessages!);
+        AppStyles.errorToastr(context, AppTexts.authErrorMessages!);
         emit(AuthenticationError());
       }
     }
@@ -258,23 +258,22 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
         log(e.toString());
         log(e.message.toString());
         if (e.code == 'invalid-email') {
-          AuthTexts.authErrorMessages = 'The email address is not valid.';
+          AppTexts.authErrorMessages = 'The email address is not valid.';
         } else if (e.code == 'user-disabled') {
-          AuthTexts.authErrorMessages =
-              'The user account has been disabled.';
+          AppTexts.authErrorMessages = 'The user account has been disabled.';
         } else if (e.code == 'user-not-found') {
-          AuthTexts.authErrorMessages = 'The user account does not exist.';
+          AppTexts.authErrorMessages = 'The user account does not exist.';
         } else if (e.code == 'wrong-password') {
-          AuthTexts.authErrorMessages = 'The password is invalid.';
+          AppTexts.authErrorMessages = 'The password is invalid.';
         } else if (e.code == 'email-already-in-use') {
-          AuthTexts.authErrorMessages =
+          AppTexts.authErrorMessages =
               'The email is already in use, please add different email';
         } else if (e.code == 'operation-not-allowed') {
-          AuthTexts.authErrorMessages = 'Operation is not allowed.';
+          AppTexts.authErrorMessages = 'Operation is not allowed.';
         } else {
-          AuthTexts.authErrorMessages = 'An undefined Error happened.';
+          AppTexts.authErrorMessages = 'An undefined Error happened.';
         }
-        AppStyles.errorToastr(context, AuthTexts.authErrorMessages!);
+        AppStyles.errorToastr(context, AppTexts.authErrorMessages!);
         emit(AuthenticationSignUpError());
       }
     }

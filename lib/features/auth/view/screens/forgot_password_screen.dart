@@ -2,8 +2,7 @@
 
 import 'dart:developer';
 
-import 'package:news_wave/features/auth/core/static/auth_style.dart';
-import 'package:news_wave/features/auth/core/static/auth_texts.dart';
+import 'package:news_wave/core/static/app_texts.dart';
 import 'package:news_wave/features/auth/view/widgets/auth_widget/auth_custom_button.dart';
 import 'package:news_wave/features/auth/view/widgets/auth_widget/authentication_field.dart';
 
@@ -25,8 +24,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   final formKey = GlobalKey<FormState>();
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  var staticTexts = AuthTexts();
-
   Future<void> resetPassword() async {
     if (!formKey.currentState!.validate()) {
       return;
@@ -35,21 +32,21 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
       await _auth.sendPasswordResetEmail(
           email: resetPasswordEmailController.text);
       setState(() {
-        AuthTexts.authErrorMessages =
+        AppTexts.authErrorMessages =
             'Password reset email sent. Please check your inbox.';
       });
     } on FirebaseAuthException catch (error) {
       log(error.code);
       setState(() {
         if (error.code == 'INVALID_EMAIL') {
-          AuthTexts.authErrorMessages =
+          AppTexts.authErrorMessages =
               'Invalid email address, please enter a valid email.';
         } else {
-          AuthTexts.authErrorMessages =
+          AppTexts.authErrorMessages =
               'Failed to send password reset email. Please try again.';
         }
       });
-      AppStyles.errorToastr(context, AuthTexts.authErrorMessages);
+      AppStyles.errorToastr(context, AppTexts.authErrorMessages);
     }
 
     Navigator.of(context).pop();
@@ -77,7 +74,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text(AuthTexts.forgotPassword),
+          title: Text(AppTexts.forgotPassword),
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -86,21 +83,21 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                AuthTexts.forgotPasswordMessage,
-                style: AuthStyles.tokenTextStyle,
+                AppTexts.forgotPasswordMessage,
+                style: AppStyles.tokenTextStyle,
                 textAlign: TextAlign.center,
               ),
               Form(
                 key: formKey,
                 child: AuthenticationField(
                   controller: resetPasswordEmailController,
-                  labelText: AuthTexts.email,
+                  labelText: AppTexts.email,
                   validator: (value) => emailValidator(value),
                   focusNode: resetPasswordEmailFocusNode,
                 ),
               ),
               AuthCustomButton(
-                label: AuthTexts.resetPassword,
+                label: AppTexts.resetPassword,
                 onPressed: resetPassword,
               ),
               const SizedBox(height: 16.0),

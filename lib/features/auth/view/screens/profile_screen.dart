@@ -5,7 +5,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:news_wave/features/auth/core/static/auth_texts.dart';
+import 'package:news_wave/core/static/app_texts.dart';
 import 'package:news_wave/features/auth/view/widgets/auth_widget/auth_custom_button.dart';
 import 'package:news_wave/features/auth/view/widgets/profile_widget/form_profile_widget.dart';
 import 'package:news_wave/features/auth/view/widgets/profile_widget/profile_image.dart';
@@ -154,7 +154,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                AuthTexts.fillProfile,
+                AppTexts.fillProfile,
                 style: const TextStyle(
                   color: Colors.black,
                   fontSize: 20,
@@ -207,7 +207,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
         child: AuthCustomButton(
           onPressed: submitForm,
-          label: AuthTexts.next,
+          label: AppTexts.next,
         ),
       ),
     );

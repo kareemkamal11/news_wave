@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:news_wave/features/auth/core/static/auth_style.dart';
-import 'package:news_wave/features/auth/core/static/auth_texts.dart';
 import 'package:news_wave/core/static/app_styles.dart';
+import 'package:news_wave/core/static/app_texts.dart';
 
 import '../../screens/forgot_password_screen.dart';
 
@@ -35,8 +34,8 @@ class RememberMe extends StatelessWidget {
               ),
             ),
             Text(
-              AuthTexts.rememberMe,
-              style: AuthStyles.titleTextStyle,
+              AppTexts.rememberMe,
+              style: AppStyles.titleTextStyle,
             ),
           ],
         ),
@@ -50,8 +49,8 @@ class RememberMe extends StatelessWidget {
                   );
                 },
                 child: Text(
-                  AuthTexts.forgotPassword,
-                  style: AuthStyles.titleTextStyle.copyWith(
+                  AppTexts.forgotPassword,
+                  style: AppStyles.titleTextStyle.copyWith(
                     color: AppStyles.primaryColor,
                   ),
                 ),

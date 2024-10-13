@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:news_wave/features/auth/core/static/auth_assets.dart';
-import 'package:news_wave/features/auth/core/static/auth_texts.dart';
+import 'package:news_wave/core/static/app_assets.dart';
+import 'package:news_wave/core/static/app_texts.dart';
 import 'package:news_wave/features/auth/view/widgets/auth_widget/custom_token_button.dart';
 
 class AuthToken extends StatelessWidget {
@@ -18,14 +18,14 @@ class AuthToken extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         CustomTokenButton(
-          icon: AuthAssets.facebook,
-          label: AuthTexts.facebook,
+          icon: AppAssets.facebook,
+          label: AppTexts.facebook,
           onPressed: fPressed,
         ),
         const SizedBox(width: 20),
         CustomTokenButton(
-          icon: AuthAssets.google,
-          label: AuthTexts.google,
+          icon: AppAssets.google,
+          label: AppTexts.google,
           onPressed: gPressed,
         ),
       ],

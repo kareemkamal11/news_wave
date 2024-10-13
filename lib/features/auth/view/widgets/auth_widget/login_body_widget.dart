@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:news_wave/features/auth/core/static/auth_texts.dart';
+import 'package:news_wave/core/static/app_texts.dart';
 import 'package:news_wave/features/auth/view/widgets/auth_widget/authentication_field.dart';
 
 class LoginBodyWidget extends StatelessWidget {
@@ -25,7 +25,7 @@ class LoginBodyWidget extends StatelessWidget {
     return Column(
       children: [
         AuthenticationField(
-          labelText: AuthTexts.email,
+          labelText: AppTexts.email,
           validator: (value) => emailValidator(value),
           onChanged: (value) {},
           controller: emailController,
@@ -33,7 +33,7 @@ class LoginBodyWidget extends StatelessWidget {
         ),
         const SizedBox(height: 20),
         AuthenticationField(
-          labelText: AuthTexts.password,
+          labelText: AppTexts.password,
           focusNode: passwordFocusNode,
           validator: (value) => passwordValidator(value),
           onChanged: (value) {},
