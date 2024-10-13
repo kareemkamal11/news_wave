@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:news_wave/core/static/app_texts.dart';
+import 'package:news_wave/core/token/email_token.dart';
 import 'package:news_wave/features/auth/view/screens/profile_screen.dart';
 import 'package:news_wave/core/static/app_styles.dart';
 import 'package:news_wave/database_helper.dart';
@@ -77,6 +78,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   }
 
   completeProfile(context, email) {
+    EmailToken.saveEmail(email);
     DatabaseHelper.instance.emailFound(email).then((value) {
       if (!value) {
         Navigator.pushReplacement(

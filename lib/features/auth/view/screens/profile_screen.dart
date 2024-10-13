@@ -66,6 +66,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   String? imageValidate;
 
+  
+
   submitForm() async {
     log('data is entered');
 
@@ -138,7 +140,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
       },
     );
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

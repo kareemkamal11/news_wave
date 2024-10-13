@@ -78,9 +78,20 @@ class DatabaseHelper {
     );
   }
 
-  Future<List<Map<String, dynamic>>> getUsers() async {
+  // اريد دالة تقوم بجلب البيانات من قاعدة البيانات بناء على الايميل وترجعها كماب 
+  Future<Map<String, dynamic>> getUser(String email) async {
     final db = await database;
-    return await db.query('users');
+    var user = await db.query(
+      'users',
+      where: 'email = ?',
+      whereArgs: [email],
+    );
+
+    if (user.isNotEmpty) {
+      return user.first;
+    } else {
+      return {};
+    }
   }
 
   Future<void> deleteUser(String email) async {

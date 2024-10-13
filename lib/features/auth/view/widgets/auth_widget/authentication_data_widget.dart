@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_wave/core/static/app_assets.dart';
 import 'package:news_wave/core/static/app_styles.dart';
 import 'package:news_wave/core/static/app_texts.dart';
 import 'package:news_wave/features/auth/view/widgets/auth_widget/auth_token_body_widget.dart';
@@ -31,7 +32,7 @@ class AuthenticationDataWidget extends StatelessWidget {
           child: ListView(
             children: [
               Image.asset(
-                cubit.isSignup ? AppTexts.signup : AppTexts.login,
+                cubit.isSignup ? AppAssets.signup : AppAssets.login,
                 width: 90,
                 height: 40,
               ),
