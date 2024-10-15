@@ -1,6 +1,25 @@
 class AppAssets {
-  static const logo = 'assets/appLogo.png';
+  static const String logo = 'assets/appLogo.png';
   static final String login = 'assets/auth/login.png';
+
+  static final String searchIcon = 'assets/searchIcon.png';
+
+  static final String homeIcon = 'assets/bottomBar/homeIcon.svg';
+
+  static final String topicesIcon = 'assets/bottomBar/topicsIcon.svg';
+
+  static final String authorIcon = 'assets/bottomBar/authorIcon.svg';
+
+  static final String bookmarkIcon = 'assets/bottomBar/bookmarkIcon.svg';
+
+  static final String homeSelected = 'assets/bottomBar/homeSelected.svg';
+
+  static final String topicsSelected = 'assets/bottomBar/topicsSeleted.svg';
+
+  static final String authorSelected = 'assets/bottomBar/authorSelected.svg';
+
+  static final String bookmarkSelected =
+      'assets/bottomBar/bookmarkSelected.svg';
 
   static final String signup = 'assets/auth/signup.png';
 

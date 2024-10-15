@@ -5,6 +5,11 @@ class AppTexts {
   static String facebook = 'Facebook';
   static String google = 'Google';
 
+  static String home = 'Home';
+  static String topics = 'Topics';
+  static String author = 'Author';
+  static String bookmark = 'Bookmark';
+
   static String next = 'Next';
 
   static String? authErrorMessages;
