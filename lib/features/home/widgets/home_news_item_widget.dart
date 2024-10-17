@@ -1,8 +1,4 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:news_wave/core/helper/string_helper.dart';
-import 'package:news_wave/core/static/app_assets.dart';
 import 'package:news_wave/core/static/app_styles.dart';
 
 class HomeNewsItemWidget extends StatefulWidget {
