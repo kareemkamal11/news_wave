@@ -5,7 +5,7 @@ import 'package:news_wave/features/auth/view/screens/auth_screen.dart';
 import 'package:news_wave/core/static/app_assets.dart';
 import 'package:news_wave/core/static/app_styles.dart';
 import 'package:news_wave/database_helper.dart';
-import 'package:news_wave/features/home_screen.dart';
+import 'package:news_wave/features/home/screen/home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -50,12 +50,12 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppStyles.primaryColor,
+      backgroundColor: AppColors.primaryColor,
       body: Center(
         child: Image.asset(
           AppAssets.logo,
           width: 200,
-          height: 150,
+          height: 110,
         ),
       ),
     );

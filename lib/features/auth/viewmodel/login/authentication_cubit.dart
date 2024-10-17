@@ -11,7 +11,7 @@ import 'package:news_wave/core/token/email_token.dart';
 import 'package:news_wave/features/auth/view/screens/profile_screen.dart';
 import 'package:news_wave/core/static/app_styles.dart';
 import 'package:news_wave/database_helper.dart';
-import 'package:news_wave/features/home_screen.dart';
+import 'package:news_wave/features/home/screen/home_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'authentication_state.dart';

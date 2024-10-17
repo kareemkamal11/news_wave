@@ -79,7 +79,7 @@ class _AuthenticationFieldState extends State<AuthenticationField> {
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide(
-                color: AppStyles.textColor,
+                color: AppColors.textColor,
                 width: 3,
               ),
             ),

@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_toastr/flutter_toastr.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class AppStyles {
+class AppColors {
   static final Color primaryColor = const Color(0xFF0F8ACF);
   static final Color textColor = const Color(0xFF4E4B66);
   static final Color errorColor = const Color(0xFFC20052);
   static final Color buttonTokenColor = const Color(0xFFEEF1F4);
   static final Color textTokenColor = const Color(0xFF667080);
+  static final Color textWhiteColor = const Color(0xFFFFFFFF);
+}
 
+class AppStyles {
   static errorToastr(BuildContext context, String? errorMessages) {
     FlutterToastr.show(
       errorMessages!,
@@ -35,7 +38,6 @@ class AppStyles {
       borderRadius: BorderRadius.only(topLeft: Radius.circular(80)),
     ),
   );
-  
 
   static final errorFieldBorder = OutlineInputBorder(
     borderRadius: BorderRadius.circular(10),
@@ -48,27 +50,25 @@ class AppStyles {
   static final searchFieldBorder = OutlineInputBorder(
     borderRadius: BorderRadius.circular(10),
     borderSide: BorderSide(
-      color: primaryColor,
+      color: AppColors.primaryColor,
       width: 1.5,
     ),
   );
 
   static TextStyle get titleTextStyle => GoogleFonts.poppins(
-        color: textColor,
+        color: AppColors.textColor,
         fontSize: 16,
         fontWeight: FontWeight.w400,
       );
 
-
-
   static TextStyle get clickTextStyle => GoogleFonts.poppins(
-        color: AppStyles.primaryColor,
+        color: AppColors.primaryColor,
         fontSize: 16,
         fontWeight: FontWeight.w400,
       );
 
   static TextStyle get tokenTextStyle => GoogleFonts.poppins(
-        color: textTokenColor,
+        color: AppColors.textTokenColor,
         fontSize: 18,
         fontWeight: FontWeight.w600,
       );

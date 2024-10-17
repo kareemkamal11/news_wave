@@ -24,7 +24,7 @@ class AuthCustomButton extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 13),
         clipBehavior: Clip.antiAlias,
         decoration: ShapeDecoration(
-          color: AppStyles.primaryColor,
+          color: AppColors.primaryColor,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
         ),
         child: Center(

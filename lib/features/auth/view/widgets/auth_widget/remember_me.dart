@@ -28,7 +28,7 @@ class RememberMe extends StatelessWidget {
               width: 30,
               height: 30,
               child: Checkbox(
-                activeColor: AppStyles.primaryColor,
+                activeColor: AppColors.primaryColor,
                 value: isRemember,
                 onChanged: onChanged,
               ),
@@ -51,7 +51,7 @@ class RememberMe extends StatelessWidget {
                 child: Text(
                   AppTexts.forgotPassword,
                   style: AppStyles.titleTextStyle.copyWith(
-                    color: AppStyles.primaryColor,
+                    color: AppColors.primaryColor,
                   ),
                 ),
               )

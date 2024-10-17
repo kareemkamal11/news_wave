@@ -10,7 +10,7 @@ import 'package:news_wave/features/auth/view/widgets/auth_widget/auth_custom_but
 import 'package:news_wave/features/auth/view/widgets/profile_widget/form_profile_widget.dart';
 import 'package:news_wave/features/auth/view/widgets/profile_widget/profile_image.dart';
 import 'package:news_wave/database_helper.dart';
-import 'package:news_wave/features/home_screen.dart';
+import 'package:news_wave/features/home/screen/home_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key, required this.email});

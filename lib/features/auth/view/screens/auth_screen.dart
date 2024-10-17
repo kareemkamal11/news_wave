@@ -14,7 +14,7 @@ class AuthScreen extends StatelessWidget {
       create: (context) => AuthenticationCubit(),
       child: SafeArea(
         child: Scaffold(
-          backgroundColor: AppStyles.primaryColor,
+          backgroundColor: AppColors.primaryColor,
           body: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [

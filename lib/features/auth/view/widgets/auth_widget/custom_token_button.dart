@@ -25,7 +25,7 @@ class CustomTokenButton extends StatelessWidget {
             const EdgeInsets.only(top: 12, left: 16, right: 24, bottom: 12),
         clipBehavior: Clip.antiAlias,
         decoration: ShapeDecoration(
-          color: AppStyles.buttonTokenColor,
+          color: AppColors.buttonTokenColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(6),
           ),
