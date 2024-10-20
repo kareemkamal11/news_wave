@@ -21,10 +21,6 @@ class BookmarkPageWidget extends StatelessWidget {
         ),
         SliverList.builder(
           itemBuilder: (context, index) {
-            return HomeNewsItemWidget(
-              index: index,
-              color: Colors.yellow,
-            );
           },
           itemCount: bookmark.length,
         ),

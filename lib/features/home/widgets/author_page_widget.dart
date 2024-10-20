@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:news_wave/features/home/widgets/custom_app_bar.dart';
-import 'package:news_wave/features/home/widgets/home_news_item_widget.dart';
 
 class AuthorPageWidget extends StatelessWidget {
   const AuthorPageWidget(
@@ -21,10 +20,7 @@ class AuthorPageWidget extends StatelessWidget {
         ),
         SliverList.builder(
           itemBuilder: (context, index) {
-            return HomeNewsItemWidget(
-              index: index,
-              color: Colors.green,
-            );
+            
           },
           itemCount: author.length,
         ),

@@ -23,6 +23,14 @@ class AppAssets {
 
   static final String signup = 'assets/auth/signup.png';
 
+  static final String business = 'assets/topics/business.png';
+
+  static final String science = 'assets/topics/science.png';
+
+  static final String technology = 'assets/topics/technology.png';
+
+  static final String sports = 'assets/topics/sports.png';
+
   static final String visiblePassword = 'assets/auth/visiblePassword.png';
 
   static final String invisiblePassword = 'assets/auth/invisiblePassword.png';

@@ -65,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
               onPageChanged: onPageChanged,
               children: [
                 NewsPageWidget(news: news, imagePath: imagePath ?? ''),
-                TopicsPageWidget(topics: news, imagePath: imagePath ?? ''),
+                TopicsPageWidget(imagePath: imagePath ?? ''),
                 AuthorPageWidget(author: news, imagePath: imagePath ?? ''),
                 BookmarkPageWidget(bookmark: news, imagePath: imagePath ?? ''),
               ]),

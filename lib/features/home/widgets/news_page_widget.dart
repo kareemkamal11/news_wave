@@ -26,7 +26,11 @@ class NewsPageWidget extends StatelessWidget {
           itemBuilder: (context, index) {
             return HomeNewsItemWidget(
               index: index,
-              color: Colors.red,
+              imageUrl:
+                  'https://s.yimg.com/ny/api/res/1.2/MmlwYgzLr9jjkILWAzjFXw--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD04MDA-/https://s.yimg.com/os/creatr-uploaded-images/2024-10/946eeba0-8ea5-11ef-b5bf-0104b4e9532a',
+              title: 'Title',
+              source: 'BBC News',
+              time: '7h ago',
             );
           },
           itemCount: news.length,
