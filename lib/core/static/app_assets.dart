@@ -42,4 +42,6 @@ class AppAssets {
   static final String takePhoto = 'assets/auth/profile/takePhoto.png';
 
   static final String emptyImage = 'assets/auth/profile/emptyImage.png';
+
+  static final String failedImaeg = 'assets/failedImage.png' ;
 }

@@ -111,7 +111,7 @@ class NewsItemDataWidget extends StatelessWidget {
                 onPressed: bookmark,
                 child: !isBookmarked
                     ? Icon(Icons.bookmark_border_sharp,
-                        color: AppColors.textWhiteColor)
+                        color: AppColors.textWhiteColor,)
                     : Icon(Icons.bookmark, color: AppColors.primaryColor),
               )
             ],
