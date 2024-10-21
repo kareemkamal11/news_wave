@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:news_wave/features/home/widgets/custom_app_bar.dart';
+import 'package:news_wave/features/home/view/widgets/custom_app_bar.dart';
+
+import 'news_item_widget.dart';
 
 class BookmarkPageWidget extends StatelessWidget {
   const BookmarkPageWidget(
@@ -20,8 +22,13 @@ class BookmarkPageWidget extends StatelessWidget {
         ),
         SliverList.builder(
           itemBuilder: (context, index) {
-            return null;
-          
+            return NewsItemWidget(
+              imageUrl: '',
+              title: '',
+              source: '',
+              time: '',
+              onPressed: () {},
+            );
           },
           itemCount: bookmark.length,
         ),

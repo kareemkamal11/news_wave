@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_wave/core/static/app_assets.dart';
-import 'package:news_wave/features/home/widgets/custom_app_bar.dart';
-import 'package:news_wave/features/home/widgets/topics_item_widget.dart';
+import 'package:news_wave/features/home/view/widgets/custom_app_bar.dart';
+import 'package:news_wave/features/home/view/widgets/topics_item_widget.dart';
 
 class TopicsPageWidget extends StatelessWidget {
   const TopicsPageWidget({super.key, required this.imagePath});
