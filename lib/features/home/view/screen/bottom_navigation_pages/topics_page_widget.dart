@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:news_wave/core/helper/context_helper.dart';
 import 'package:news_wave/core/static/app_assets.dart';
-import 'package:news_wave/features/home/view/widgets/custom_app_bar.dart';
-import 'package:news_wave/features/home/view/widgets/topics_item_widget.dart';
+import 'package:news_wave/features/home/view/screen/category_news_screen.dart';
+import 'package:news_wave/features/home/view/widgets/home_widgets/custom_app_bar.dart';
+import 'package:news_wave/features/home/view/widgets/home_widgets/category_item_widget.dart';
 
 class TopicsPageWidget extends StatelessWidget {
   const TopicsPageWidget({super.key, required this.imagePath});
@@ -32,7 +34,6 @@ class TopicsPageWidget extends StatelessWidget {
         SliverToBoxAdapter(
           child: CustomAppBar(
             imagePath: imagePath,
-            selected: 1,
           ),
         ),
         SliverGrid.builder(
@@ -44,7 +45,11 @@ class TopicsPageWidget extends StatelessWidget {
             return Padding(
               padding: const EdgeInsets.all(15),
               child: CategoryItemWidget(
-                onTap: () {},
+                onTap: () {
+                  context.pustTo(
+                    CategoryNewsScreen(categotyTitle: topics[index]['title']),
+                  );
+                },
                 title: topics[index]['title'],
                 image: DecorationImage(
                   image: AssetImage(topics[index]['image']),

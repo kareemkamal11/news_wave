@@ -43,5 +43,9 @@ class AppAssets {
 
   static final String emptyImage = 'assets/auth/profile/emptyImage.png';
 
-  static final String failedImaeg = 'assets/failedImage.png' ;
+  static final String failedImaeg = 'assets/emptyImage.jpg' ;
+
+  static final String failedIcon = 'assets/emptyIcon.jpg';
+
+  static final String logoIcon = 'assets/logoIcon.png';
 }

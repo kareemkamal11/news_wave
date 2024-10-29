@@ -5,17 +5,15 @@ import 'package:news_wave/core/helper/context_helper.dart';
 import 'package:news_wave/core/static/app_assets.dart';
 import 'package:news_wave/core/static/app_styles.dart';
 
-import 'search_page_widget.dart';
+import '../../screen/bottom_navigation_pages/search_page_widget.dart';
 
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar({
     super.key,
     required this.imagePath,
-    required this.selected,
   });
 
   final String imagePath;
-  final int selected;
 
   @override
   Widget build(BuildContext context) {
@@ -45,13 +43,8 @@ class CustomAppBar extends StatelessWidget {
         Container(
           width: double.infinity,
           height: 2,
-          decoration: ShapeDecoration(
-            shape: RoundedRectangleBorder(
-              side: BorderSide(
-                  width: 1,
-                  strokeAlign: BorderSide.strokeAlignCenter,
-                  color: AppColors.primaryColor),
-            ),
+          decoration: BoxDecoration(
+            color: AppColors.primaryColor,
           ),
         ),
         const SizedBox(height: 15),

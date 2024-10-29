@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:news_wave/core/token/email_token.dart';
 import 'package:news_wave/database_helper.dart';
-import 'package:news_wave/features/home/view/widgets/author_page_widget.dart';
-import 'package:news_wave/features/home/view/widgets/bookmark_page_widget.dart';
-import 'package:news_wave/features/home/view/widgets/navigation_buttom_widget.dart';
-import 'package:news_wave/features/home/view/widgets/news_page_widget.dart';
-import 'package:news_wave/features/home/view/widgets/topics_page_widget.dart';
+import 'package:news_wave/features/home/view/screen/bottom_navigation_pages/author_page_widget.dart';
+import 'package:news_wave/features/home/view/screen/bottom_navigation_pages/bookmark_page_widget.dart';
+import 'package:news_wave/features/home/view/widgets/home_widgets/navigation_buttom_widget.dart';
+import 'package:news_wave/features/home/view/screen/bottom_navigation_pages/news_page_widget.dart';
+import 'package:news_wave/features/home/view/screen/bottom_navigation_pages/topics_page_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

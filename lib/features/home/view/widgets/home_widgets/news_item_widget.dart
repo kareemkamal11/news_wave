@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news_wave/core/static/app_assets.dart';
 import 'package:news_wave/core/static/app_styles.dart';
+import 'package:news_wave/features/home/view/screen/news_reading_screen.dart';
 
 class NewsItemWidget extends StatefulWidget {
   const NewsItemWidget({
@@ -10,14 +11,16 @@ class NewsItemWidget extends StatefulWidget {
     required this.title,
     required this.source,
     required this.time,
-    required this.onPressed,
+    required this.category,
+    required this.urlSource,
   });
 
   final String imageUrl;
   final String title;
   final String source;
   final String time;
-  final Function() onPressed;
+  final String category;
+  final String urlSource;
 
   @override
   State<NewsItemWidget> createState() => _NewsItemWidgetState();
@@ -31,7 +34,13 @@ class _NewsItemWidgetState extends State<NewsItemWidget> {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
       child: InkWell(
-        onTap: widget.onPressed,
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => NewsReadingScreen(url: widget.urlSource),
+            ),
+          );
+        },
         child: Stack(
           children: [
             Container(
@@ -63,7 +72,7 @@ class _NewsItemWidgetState extends State<NewsItemWidget> {
                     isBookmarked = !isBookmarked;
                   });
                 },
-                category: 'Technology',
+                category: widget.category,
               ),
             )
           ],

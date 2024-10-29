@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:news_wave/features/home/view/widgets/custom_app_bar.dart';
+import 'package:news_wave/features/home/view/widgets/home_widgets/custom_app_bar.dart';
 
-import 'news_item_widget.dart';
+import '../../widgets/home_widgets/news_item_widget.dart';
 
 class BookmarkPageWidget extends StatelessWidget {
   const BookmarkPageWidget(
@@ -17,7 +17,6 @@ class BookmarkPageWidget extends StatelessWidget {
         SliverToBoxAdapter(
           child: CustomAppBar(
             imagePath: imagePath,
-            selected: 3,
           ),
         ),
         SliverList.builder(
@@ -27,7 +26,9 @@ class BookmarkPageWidget extends StatelessWidget {
               title: '',
               source: '',
               time: '',
-              onPressed: () {},
+              urlSource:
+                  'https://www.tmz.com/2020/08/04/rafael-nadal-us-open-tennis-covid-19-concerns/',
+              category: 'Bookmark',
             );
           },
           itemCount: bookmark.length,
