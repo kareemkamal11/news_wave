@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:news_wave/core/static/app_assets.dart';
 import 'package:news_wave/core/static/app_styles.dart';
+import 'package:share_plus/share_plus.dart';
 
 class NewsReadingScreen extends StatelessWidget {
   const NewsReadingScreen({
@@ -11,13 +12,19 @@ class NewsReadingScreen extends StatelessWidget {
 
   final String url;
 
+  shareLink() async {
+    await Share.share(url);
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         body: Column(
           children: [
-            ReadingAppBarWidget(),
+            ReadingAppBarWidget(
+              share: shareLink,
+            ),
             Expanded(
               child: InAppWebView(
                 initialUrlRequest: URLRequest(
@@ -32,13 +39,13 @@ class NewsReadingScreen extends StatelessWidget {
   }
 }
 
-
-
-
 class ReadingAppBarWidget extends StatelessWidget {
   const ReadingAppBarWidget({
     super.key,
+    required this.share,
   });
+
+  final Function() share;
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +67,7 @@ class ReadingAppBarWidget extends StatelessWidget {
                   width: 90, height: 40, color: AppColors.primaryColor),
               IconButton(
                 icon: Icon(Icons.share, color: AppColors.textColor),
-                onPressed: () {},
+                onPressed: share,
               ),
             ],
           ),

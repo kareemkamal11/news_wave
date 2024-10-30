@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_wave/features/auth/view/widgets/auth_widget/authentication_data_widget.dart';
-import 'package:news_wave/features/auth/viewmodel/login/authentication_cubit.dart';
+import 'package:news_wave/features/auth/viewmodel/authentication_cubit.dart';
 import 'package:news_wave/core/static/app_assets.dart';
 import 'package:news_wave/core/static/app_styles.dart';
 

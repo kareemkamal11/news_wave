@@ -8,8 +8,8 @@ import 'package:news_wave/core/static/app_texts.dart';
 import 'package:news_wave/features/auth/view/widgets/auth_widget/auth_token_body_widget.dart';
 import 'package:news_wave/features/auth/view/widgets/auth_widget/login_body_widget.dart';
 import 'package:news_wave/features/auth/view/widgets/auth_widget/sign_up_body_widget.dart';
-import 'package:news_wave/features/auth/viewmodel/login/authentication_cubit.dart';
-import 'package:news_wave/features/auth/viewmodel/login/authentication_state.dart';
+import 'package:news_wave/features/auth/viewmodel/authentication_cubit.dart';
+import 'package:news_wave/features/auth/viewmodel/authentication_state.dart';
 
 import 'auth_custom_button.dart';
 import 'remember_me.dart';

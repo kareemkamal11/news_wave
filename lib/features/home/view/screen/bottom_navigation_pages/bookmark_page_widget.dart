@@ -25,6 +25,7 @@ class BookmarkPageWidget extends StatelessWidget {
               imageUrl: '',
               title: '',
               source: '',
+              sourceIcon: '',
               time: '',
               urlSource:
                   'https://www.tmz.com/2020/08/04/rafael-nadal-us-open-tennis-covid-19-concerns/',

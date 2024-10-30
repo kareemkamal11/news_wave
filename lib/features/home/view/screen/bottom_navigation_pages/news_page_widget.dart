@@ -28,6 +28,7 @@ class NewsPageWidget extends StatelessWidget {
                   'https://s.yimg.com/ny/api/res/1.2/MmlwYgzLr9jjkILWAzjFXw--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD04MDA-/https://s.yimg.com/os/creatr-uploaded-images/2024-10/946eeba0-8ea5-11ef-b5bf-0104b4e9532a',
               title: 'Title',
               source: 'BBC News',
+              sourceIcon: 'https://logo.clearbit.com/bbcnews.com',
               time: '7h ago',
               urlSource:
                   'https://www.tmz.com/2020/08/04/rafael-nadal-us-open-tennis-covid-19-concerns/',

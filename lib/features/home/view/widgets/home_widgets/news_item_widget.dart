@@ -13,11 +13,13 @@ class NewsItemWidget extends StatefulWidget {
     required this.time,
     required this.category,
     required this.urlSource,
+    required this.sourceIcon,
   });
 
   final String imageUrl;
   final String title;
   final String source;
+  final String sourceIcon;
   final String time;
   final String category;
   final String urlSource;
@@ -65,6 +67,7 @@ class _NewsItemWidgetState extends State<NewsItemWidget> {
               child: NewsItemDataWidget(
                 title: widget.title,
                 source: widget.source,
+                sourceIcon: widget.sourceIcon,
                 time: widget.time,
                 isBookmarked: isBookmarked,
                 bookmark: () {
@@ -91,10 +94,12 @@ class NewsItemDataWidget extends StatelessWidget {
     required this.isBookmarked,
     required this.bookmark,
     required this.category,
+    required this.sourceIcon,
   });
 
   final String title;
   final String source;
+  final String sourceIcon;
   final String time;
   final String category;
   final bool isBookmarked;
@@ -140,37 +145,56 @@ class NewsItemDataWidget extends StatelessWidget {
               )
             ],
           ),
-          Row(children: [
-            Text(
-              source,
-              style: GoogleFonts.poppins(
-                color: Colors.blueGrey[200],
-                //
-                fontSize: 15,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            SizedBox(width: 15),
-            Icon(Icons.access_time_rounded, color: Colors.white),
-            SizedBox(width: 2),
-            Text(
-              time,
-              style: TextStyle(
+          Row(
+            children: [
+              Container(
+                width: 25,
+                height: 25,
+                decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
                 color: Colors.white,
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
+                  image: DecorationImage(
+                    image: sourceIcon.isEmpty
+                      ? AssetImage(
+                          AppAssets.failedIcon,
+                        )
+                      : NetworkImage(sourceIcon),
+                      fit: BoxFit.cover,
+                ),
               ),
-            ),
-            SizedBox(width: 50),
-            Text(
-              category,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
               ),
-            )
-          ])
+              SizedBox(width: 5),
+              Text(
+                source,
+                style: GoogleFonts.poppins(
+                  color: Colors.blueGrey[200],
+                  //
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              SizedBox(width: 15),
+              Icon(Icons.access_time_rounded, color: Colors.white),
+              SizedBox(width: 2),
+              Text(
+                time,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              SizedBox(width: 50),
+              Text(
+                category,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                ),
+              )
+            ],
+          )
         ],
       ),
     );
