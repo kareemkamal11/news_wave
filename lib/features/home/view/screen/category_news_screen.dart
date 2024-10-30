@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_wave/core/static/app_styles.dart';
-import 'package:news_wave/features/home/view/widgets/home_widgets/news_item_widget.dart';
+import 'package:news_wave/features/home/view/widgets/news_item_widget.dart';
 
 class CategoryNewsScreen extends StatelessWidget {
   const CategoryNewsScreen({super.key, required this.categotyTitle});

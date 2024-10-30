@@ -5,7 +5,7 @@ import 'package:news_wave/core/helper/context_helper.dart';
 import 'package:news_wave/core/static/app_assets.dart';
 import 'package:news_wave/core/static/app_styles.dart';
 
-import '../../screen/bottom_navigation_pages/search_page_widget.dart';
+import '../screen/bottom_navigation_pages/search_page_widget.dart';
 
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar({

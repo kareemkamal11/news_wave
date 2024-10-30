@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news_wave/core/static/app_assets.dart';
 import 'package:news_wave/core/static/app_styles.dart';
-import 'package:news_wave/features/home/view/screen/news_reading_screen.dart';
+import 'package:news_wave/features/home/view/widgets/news_reading_screen.dart';
 
 class NewsItemWidget extends StatefulWidget {
   const NewsItemWidget({
