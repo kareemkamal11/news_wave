@@ -4,7 +4,7 @@ import 'package:news_wave/core/static/app_assets.dart';
 import 'package:news_wave/core/static/app_styles.dart';
 import 'package:news_wave/features/home/view/widgets/news_reading_screen.dart';
 
-class NewsItemWidget extends StatefulWidget {
+class NewsItemWidget extends StatelessWidget {
   const NewsItemWidget({
     super.key,
     required this.imageUrl,
@@ -14,6 +14,8 @@ class NewsItemWidget extends StatefulWidget {
     required this.category,
     required this.urlSource,
     required this.sourceIcon,
+    required this.isBookmarked,
+    required this.onMarked,
   });
 
   final String imageUrl;
@@ -23,13 +25,8 @@ class NewsItemWidget extends StatefulWidget {
   final String time;
   final String category;
   final String urlSource;
-
-  @override
-  State<NewsItemWidget> createState() => _NewsItemWidgetState();
-}
-
-class _NewsItemWidgetState extends State<NewsItemWidget> {
-  bool isBookmarked = false;
+  final bool isBookmarked;
+  final Function() onMarked;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +36,7 @@ class _NewsItemWidgetState extends State<NewsItemWidget> {
         onTap: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => NewsReadingScreen(url: widget.urlSource),
+              builder: (context) => NewsReadingScreen(url: urlSource),
             ),
           );
         },
@@ -54,9 +51,9 @@ class _NewsItemWidgetState extends State<NewsItemWidget> {
                   width: 1,
                 ),
                 image: DecorationImage(
-                  image: widget.imageUrl.isEmpty
+                  image: imageUrl.isEmpty
                       ? AssetImage(AppAssets.failedImaeg)
-                      : NetworkImage(widget.imageUrl),
+                      : NetworkImage(imageUrl),
                   fit: BoxFit.cover,
                 ),
                 borderRadius: BorderRadius.circular(15),
@@ -65,17 +62,13 @@ class _NewsItemWidgetState extends State<NewsItemWidget> {
             Positioned(
               bottom: 0,
               child: NewsItemDataWidget(
-                title: widget.title,
-                source: widget.source,
-                sourceIcon: widget.sourceIcon,
-                time: widget.time,
+                title: title,
+                source: source,
+                sourceIcon: sourceIcon,
+                time: time,
                 isBookmarked: isBookmarked,
-                bookmark: () {
-                  setState(() {
-                    isBookmarked = !isBookmarked;
-                  });
-                },
-                category: widget.category,
+                onMarked: onMarked,
+                category: category,
               ),
             )
           ],
@@ -92,7 +85,7 @@ class NewsItemDataWidget extends StatelessWidget {
     required this.source,
     required this.time,
     required this.isBookmarked,
-    required this.bookmark,
+    required this.onMarked,
     required this.category,
     required this.sourceIcon,
   });
@@ -103,7 +96,7 @@ class NewsItemDataWidget extends StatelessWidget {
   final String time;
   final String category;
   final bool isBookmarked;
-  final Function() bookmark;
+  final Function() onMarked;
 
   @override
   Widget build(BuildContext context) {
@@ -135,7 +128,7 @@ class NewsItemDataWidget extends StatelessWidget {
                 ),
               ),
               TextButton(
-                onPressed: bookmark,
+                onPressed: onMarked,
                 child: !isBookmarked
                     ? Icon(
                         Icons.bookmark_border_sharp,
@@ -151,17 +144,17 @@ class NewsItemDataWidget extends StatelessWidget {
                 width: 25,
                 height: 25,
                 decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50),
-                color: Colors.white,
+                  borderRadius: BorderRadius.circular(50),
+                  color: Colors.white,
                   image: DecorationImage(
                     image: sourceIcon.isEmpty
-                      ? AssetImage(
-                          AppAssets.failedIcon,
-                        )
-                      : NetworkImage(sourceIcon),
-                      fit: BoxFit.cover,
+                        ? AssetImage(
+                            AppAssets.failedIcon,
+                          )
+                        : NetworkImage(sourceIcon),
+                    fit: BoxFit.cover,
+                  ),
                 ),
-              ),
               ),
               SizedBox(width: 5),
               Text(

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import '../model/category_item_model.dart';
 import '../model/news_item_model.dart';
 import 'home_state.dart';
 
@@ -26,6 +27,12 @@ class HomeCubit extends Cubit<HomeState> {
     allNewsList = await _getNewsData(url);
     emit(NewsLoaded());
     return allNewsList;
+  }
+
+  
+
+  onMarked() {
+
   }
 
   /// جلب الأخبار بناءً على قسم معين
@@ -104,7 +111,7 @@ class HomeCubit extends Cubit<HomeState> {
       categories = await Future.wait(categorySet.map((category) async {
         final imageUrl = await fetchCategoryImage(category);
         final news = await fetchNewsByCategory(category);
-        return CategoryItemModel(name: category, image: imageUrl, news: news);
+        return CategoryItemModel(title: category, image: imageUrl, news: news);
       }));
     }
   }
@@ -121,26 +128,13 @@ class HomeCubit extends Cubit<HomeState> {
       if (news['source'] != null) {
         return source = news['source'];
       }
-          sources.add(
-      CategoryItemModel(
-        name: source ,
-        image: sourceIcon,
-        news: await fetchNewsBySource(source),
-      ),
-    );
-
+      sources.add(
+        CategoryItemModel(
+          title: source,
+          image: sourceIcon,
+          news: await fetchNewsBySource(source),
+        ),
+      );
     }
   }
-}
-
-class CategoryItemModel {
-  final String name;
-  final String image;
-  final List<NewsItemModel> news;
-
-  CategoryItemModel({
-    required this.name,
-    required this.image,
-    required this.news,
-  });
 }

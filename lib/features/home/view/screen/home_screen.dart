@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_wave/core/token/email_token.dart';
 import 'package:news_wave/database_helper.dart';
+import 'package:news_wave/features/home/model/news_item_model.dart';
 import 'package:news_wave/features/home/view/screen/bottom_navigation_pages/author_page_widget.dart';
 import 'package:news_wave/features/home/view/screen/bottom_navigation_pages/bookmark_page_widget.dart';
 import 'package:news_wave/features/home/view/widgets/navigation_buttom_widget.dart';
 import 'package:news_wave/features/home/view/screen/bottom_navigation_pages/news_page_widget.dart';
 import 'package:news_wave/features/home/view/screen/bottom_navigation_pages/topics_page_widget.dart';
+import 'package:news_wave/features/home/view_model/home_cubit.dart';
+import 'package:news_wave/features/home/view_model/home_state.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -56,24 +60,44 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  List<NewsItemModel> newsBookmark = [];
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-          body: PageView(
-              controller: pageController,
-              onPageChanged: onPageChanged,
-              children: [
-                NewsPageWidget(news: news, imagePath: imagePath ?? ''),
-                TopicsPageWidget(imagePath: imagePath ?? ''),
-                AuthorPageWidget(author: news, imagePath: imagePath ?? ''),
-                BookmarkPageWidget(bookmark: news, imagePath: imagePath ?? ''),
-              ]),
-          bottomNavigationBar: NavigationButtomWidget(
-            selected: selected,
-            pageController: pageController,
-            onTap: onItemTapped,
-          )),
+    return BlocBuilder<HomeCubit, HomeState>(
+      builder: (context, state) {
+        var newsCubit = BlocProvider.of<HomeCubit>(context);
+        return SafeArea(
+          child: Scaffold(
+              body: PageView(
+                  controller: pageController,
+                  onPageChanged: onPageChanged,
+                  children: [
+                    NewsPageWidget(
+                      news: newsCubit.allNewsList,
+                      onMarked: newsCubit.onMarked,
+                      imagePath: imagePath ?? '',
+                    ),
+                    TopicsPageWidget(
+                      topics: newsCubit.categories,
+                      imagePath: imagePath ?? '',
+                    ),
+                    AuthorPageWidget(
+                      authors: newsCubit.sources,
+                      imagePath: imagePath ?? '',
+                    ),
+                    BookmarkPageWidget(
+                      bookmarkList: newsBookmark,
+                      imagePath: imagePath ?? '',
+                    ),
+                  ]),
+              bottomNavigationBar: NavigationButtomWidget(
+                selected: selected,
+                pageController: pageController,
+                onTap: onItemTapped,
+              )),
+        );
+      },
     );
   }
 }

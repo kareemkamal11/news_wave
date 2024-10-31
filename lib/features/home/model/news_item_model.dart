@@ -3,7 +3,7 @@ class NewsItemModel {
   final String title;
   final String source;
   final String sourceIcon;
-  final String linkUrl;
+  final String urlSource;
   final String time;
   final String category;
   bool isBookmarked;
@@ -13,7 +13,7 @@ class NewsItemModel {
     required this.title,
     required this.source,
     required this.sourceIcon,
-    required this.linkUrl,
+    required this.urlSource,
     required this.time,
     required this.category,
     this.isBookmarked = false,

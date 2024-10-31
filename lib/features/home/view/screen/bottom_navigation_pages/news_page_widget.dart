@@ -8,10 +8,12 @@ class NewsPageWidget extends StatelessWidget {
     super.key,
     required this.news,
     required this.imagePath,
+    required this.onMarked,
   });
 
   final List<NewsItemModel> news;
   final String imagePath;
+  final Function() onMarked;
 
   @override
   Widget build(BuildContext context) {
@@ -26,13 +28,14 @@ class NewsPageWidget extends StatelessWidget {
           itemBuilder: (context, index) {
             return NewsItemWidget(
               imageUrl: news[index].imageUrl,
-              title: 'Title',
-              source: 'BBC News',
-              sourceIcon: 'https://logo.clearbit.com/bbcnews.com',
-              time: '7h ago',
-              urlSource:
-                  'https://www.tmz.com/2020/08/04/rafael-nadal-us-open-tennis-covid-19-concerns/',
-              category: 'Technology',
+              title: news[index].title,
+              source: news[index].source,
+              sourceIcon: news[index].sourceIcon,
+              time: news[index].time,
+              urlSource: news[index].urlSource,
+              category: news[index].category,
+              isBookmarked: news[index].isBookmarked,
+              onMarked: onMarked,
             );
           },
           itemCount: news.length,

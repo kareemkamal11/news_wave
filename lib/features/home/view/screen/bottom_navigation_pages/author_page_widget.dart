@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_wave/core/helper/context_helper.dart';
 import 'package:news_wave/core/static/app_assets.dart';
+import 'package:news_wave/features/home/model/category_item_model.dart';
 import 'package:news_wave/features/home/view/screen/category_news_screen.dart';
 import 'package:news_wave/features/home/view/widgets/custom_app_bar.dart';
 
@@ -8,14 +9,13 @@ import '../../widgets/category_item_widget.dart';
 
 class AuthorPageWidget extends StatelessWidget {
   const AuthorPageWidget(
-      {super.key, required this.author, required this.imagePath});
+      {super.key, required this.authors, required this.imagePath});
 
-  final List author;
+  final List<CategoryItemModel> authors;
   final String imagePath;
 
   @override
   Widget build(BuildContext context) {
-    String imageSource = 'https://logo.clearbit.com/bbcnews.com';
     return CustomScrollView(
       slivers: [
         SliverToBoxAdapter(
@@ -30,20 +30,21 @@ class AuthorPageWidget extends StatelessWidget {
           ),
           itemBuilder: (context, index) {
             return CategoryItemWidget(
-              title: 'BBC News',
+              title: authors[index].title,
               image: DecorationImage(
-                image: imageSource.isEmpty
+                image: authors[index].image.isEmpty
                     ? AssetImage(AppAssets.failedImaeg)
-                    : NetworkImage(imageSource), // رابط الصورة
+                    : NetworkImage(authors[index].image), // رابط الصورة
               ),
               onTap: () {
                 context.pustTo(CategoryNewsScreen(
-                  categotyTitle: 'BBC News',
+                  categotyTitle: authors[index].title,
+                  categoryNews: authors[index].news,
                 ));
               },
             );
           },
-          itemCount: author.length,
+          itemCount: authors.length,
         ),
       ],
     );

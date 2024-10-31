@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:news_wave/core/static/app_styles.dart';
+import 'package:news_wave/features/home/model/news_item_model.dart';
 import 'package:news_wave/features/home/view/widgets/news_item_widget.dart';
 
 class CategoryNewsScreen extends StatelessWidget {
-  const CategoryNewsScreen({super.key, required this.categotyTitle});
+  const CategoryNewsScreen({
+    super.key,
+    required this.categotyTitle,
+    required this.categoryNews,
+  });
 
   final String categotyTitle;
+  final List<NewsItemModel> categoryNews;
 
   @override
   Widget build(BuildContext context) {
@@ -51,13 +57,15 @@ class CategoryNewsScreen extends StatelessWidget {
             SliverList.builder(
               itemBuilder: (context, index) {
                 return NewsItemWidget(
-                  imageUrl: '',
-                  title: '',
-                  source: '',
-                  sourceIcon: 'https://logo.clearbit.com/bbcnews.com',
-                  time: '',
-                  urlSource: 'https://www.tmz.com/2020/08/04/rafael-nadal-us-open-tennis-covid-19-concerns/',
-                  category: categotyTitle,
+                  imageUrl: categoryNews[index].imageUrl,
+                  title: categoryNews[index].title,
+                  source: categoryNews[index].source,
+                  sourceIcon: categoryNews[index].sourceIcon,
+                  time: categoryNews[index].time,
+                  urlSource: categoryNews[index].urlSource,
+                  category: categoryNews[index].category,
+                  isBookmarked: categoryNews[index].isBookmarked,
+                  onMarked: () {},
                 );
               },
               itemCount: 10,
