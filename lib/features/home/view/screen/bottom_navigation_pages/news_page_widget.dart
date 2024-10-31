@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_wave/features/home/model/news_item_model.dart';
 import 'package:news_wave/features/home/view/widgets/custom_app_bar.dart';
 import 'package:news_wave/features/home/view/widgets/news_item_widget.dart';
 
@@ -9,7 +10,7 @@ class NewsPageWidget extends StatelessWidget {
     required this.imagePath,
   });
 
-  final List news;
+  final List<NewsItemModel> news;
   final String imagePath;
 
   @override
@@ -24,8 +25,7 @@ class NewsPageWidget extends StatelessWidget {
         SliverList.builder(
           itemBuilder: (context, index) {
             return NewsItemWidget(
-              imageUrl:
-                  'https://s.yimg.com/ny/api/res/1.2/MmlwYgzLr9jjkILWAzjFXw--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD04MDA-/https://s.yimg.com/os/creatr-uploaded-images/2024-10/946eeba0-8ea5-11ef-b5bf-0104b4e9532a',
+              imageUrl: news[index].imageUrl,
               title: 'Title',
               source: 'BBC News',
               sourceIcon: 'https://logo.clearbit.com/bbcnews.com',

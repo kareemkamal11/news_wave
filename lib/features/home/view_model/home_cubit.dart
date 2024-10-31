@@ -18,7 +18,7 @@ class HomeCubit extends Cubit<HomeState> {
   List<NewsItemModel> sourceNewsList = [];
   List<NewsItemModel> searchNewsList = [];
   List<CategoryItemModel> categories = [];
-  List<String> sources = [];
+  List<CategoryItemModel> sources = [];
 
   /// جلب كافة الأخبار
   Future<List<NewsItemModel>> fetchAllNews() async {
@@ -109,15 +109,27 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
-  void extractSources(List<dynamic> newsList) {
-    final Set<String> sourceSet = {};
+  extractSources(List<dynamic> newsList) async {
+    String source = '';
+    String sourceIcon = '';
     for (var news in newsList) {
       if (news['url'] != null) {
         final uri = Uri.parse(news['url']);
-        sourceSet.add(uri.host);
+        final source = uri.host;
+        return sourceIcon = 'https://logo.clearbit.com/$source';
       }
+      if (news['source'] != null) {
+        return source = news['source'];
+      }
+          sources.add(
+      CategoryItemModel(
+        name: source ,
+        image: sourceIcon,
+        news: await fetchNewsBySource(source),
+      ),
+    );
+
     }
-    sources = sourceSet.toList();
   }
 }
 
