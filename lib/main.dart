@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:news_wave/firebase_options.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'features/home/view_model/home_cubit.dart';
 
 import 'features/init/splash_screen.dart';
 
@@ -9,7 +11,12 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+  runApp(
+    BlocProvider(
+      create: (context) => HomeCubit(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
