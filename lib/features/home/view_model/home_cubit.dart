@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+
 import '../model/category_item_model.dart';
 import '../model/news_item_model.dart';
 import 'home_state.dart';
@@ -10,9 +11,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitial());
   final String _baseUrl = 'https://api.mediastack.com/v1/news';
-  final String _apiKey = '89f8b6602b9a8ca66bcc282d2be421ac';
-  final String unsplashApiKey = '6CnSkVtcGhqLn3tRXEh3paafizN0J42R9pBmjt0lcy0';
-
+  final String _apiKey = '315692332a31a918309cffc3b02157a3';
+  final String _getImageUrl = 'https://api.api-ninjas.com/v1/randomimage';
   List<NewsItemModel> newsList = [];
   List<NewsItemModel> allNewsList = [];
   List<NewsItemModel> categoryNewsList = [];
@@ -82,11 +82,13 @@ class HomeCubit extends Cubit<HomeState> {
       print('An error occurred: $e');
       return [];
     }
+
   }
 
   Future<String> fetchCategoryImage(String category) async {
     final url = Uri.parse(
-        'https://api.unsplash.com/photos/random?query=$category&client_id=$unsplashApiKey');
+        '$_getImageUrl?category=$category'
+        );
     try {
       final response = await http.get(url);
       if (response.statusCode == 200) {

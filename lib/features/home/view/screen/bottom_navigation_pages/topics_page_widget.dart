@@ -20,33 +20,39 @@ class TopicsPageWidget extends StatelessWidget {
             imagePath: imagePath,
           ),
         ),
-        SliverGrid.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 5,
-          ),
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: const EdgeInsets.all(15),
-              child: CategoryItemWidget(
-                onTap: () {
-                  context.pustTo(
-                    CategoryNewsScreen(
-                      categotyTitle: topics[index].title,
-                      categoryNews: topics[index].news,
+        topics.isEmpty
+            ? const SliverFillRemaining(
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              )
+            : SliverGrid.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 5,
+                ),
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: CategoryItemWidget(
+                      onTap: () {
+                        context.pustTo(
+                          CategoryNewsScreen(
+                            categotyTitle: topics[index].title,
+                            categoryNews: topics[index].news,
+                          ),
+                        );
+                      },
+                      title: topics[index].title,
+                      image: DecorationImage(
+                        image: AssetImage(topics[index].image!),
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   );
                 },
-                title: topics[index].title,
-                image: DecorationImage(
-                  image: AssetImage(topics[index].image),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            );
-          },
-          itemCount: topics.length,
-        )
+                itemCount: topics.length,
+              )
       ],
     );
   }

@@ -16,6 +16,8 @@ class AppTexts {
 
   static String fillProfile = 'Fill your Profile';
 
+  static String? errorMessages;
+
   static String resetPassword = 'Reset Password';
 
   static String fullName = 'Full Name';

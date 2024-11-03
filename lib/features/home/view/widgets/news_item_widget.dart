@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:news_wave/core/static/app_assets.dart';
 import 'package:news_wave/core/static/app_styles.dart';
 import 'package:news_wave/features/home/view/widgets/news_reading_screen.dart';
@@ -100,6 +101,7 @@ class NewsItemDataWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final timeData =  DateFormat('MM-dd hh:mm');
     return Container(
       width: 395,
       height: 100,
@@ -170,20 +172,20 @@ class NewsItemDataWidget extends StatelessWidget {
               Icon(Icons.access_time_rounded, color: Colors.white),
               SizedBox(width: 2),
               Text(
-                time,
+               timeData.format(DateTime.parse(time)),
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
                 ),
               ),
-              SizedBox(width: 50),
+              SizedBox(width: 25),
               Text(
                 category,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 14,
-                  fontWeight: FontWeight.w400,
+                  fontWeight: FontWeight.w700,
                 ),
               )
             ],

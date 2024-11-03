@@ -23,29 +23,35 @@ class AuthorPageWidget extends StatelessWidget {
             imagePath: imagePath,
           ),
         ),
-        SliverGrid.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 5,
-          ),
-          itemBuilder: (context, index) {
-            return CategoryItemWidget(
-              title: authors[index].title,
-              image: DecorationImage(
-                image: authors[index].image.isEmpty
-                    ? AssetImage(AppAssets.failedImaeg)
-                    : NetworkImage(authors[index].image), // رابط الصورة
+        authors.isEmpty
+            ? const SliverFillRemaining(
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              )
+            : SliverGrid.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 5,
+                ),
+                itemBuilder: (context, index) {
+                  return CategoryItemWidget(
+                    title: authors[index].title,
+                    image: DecorationImage(
+                      image: authors[index].image!.isEmpty
+                          ? AssetImage(AppAssets.failedImaeg)
+                          : NetworkImage(authors[index].image!), // رابط الصورة
+                    ),
+                    onTap: () {
+                      context.pustTo(CategoryNewsScreen(
+                        categotyTitle: authors[index].title,
+                        categoryNews: authors[index].news,
+                      ));
+                    },
+                  );
+                },
+                itemCount: authors.length,
               ),
-              onTap: () {
-                context.pustTo(CategoryNewsScreen(
-                  categotyTitle: authors[index].title,
-                  categoryNews: authors[index].news,
-                ));
-              },
-            );
-          },
-          itemCount: authors.length,
-        ),
       ],
     );
   }
