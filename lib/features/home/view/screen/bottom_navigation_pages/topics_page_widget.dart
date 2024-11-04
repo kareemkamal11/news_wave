@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_wave/core/helper/context_helper.dart';
+import 'package:news_wave/core/static/app_assets.dart';
 import 'package:news_wave/features/home/model/category_item_model.dart';
 import 'package:news_wave/features/home/view/screen/category_news_screen.dart';
 import 'package:news_wave/features/home/view/widgets/custom_app_bar.dart';
@@ -45,7 +46,9 @@ class TopicsPageWidget extends StatelessWidget {
                       },
                       title: topics[index].title,
                       image: DecorationImage(
-                        image: AssetImage(topics[index].image!),
+                        image: topics[index].image!.isEmpty
+                        ? AssetImage(AppAssets.failedImaeg)
+                        : NetworkImage(topics[index].image!),
                         fit: BoxFit.cover,
                       ),
                     ),

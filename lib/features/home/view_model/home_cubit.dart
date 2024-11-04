@@ -1,142 +1,213 @@
-import 'dart:convert';
+import 'dart:developer';
 
-
-import '../model/category_item_model.dart';
-import '../model/news_item_model.dart';
-import 'home_state.dart';
-
-import 'package:http/http.dart' as http;
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_wave/features/home/model/category_item_model.dart';
+import 'package:news_wave/features/home/model/news_item_model.dart';
+import 'home_state.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class HomeCubit extends Cubit<HomeState> {
-  HomeCubit() : super(HomeInitial());
-  final String _baseUrl = 'https://api.mediastack.com/v1/news';
-  final String _apiKey = '315692332a31a918309cffc3b02157a3';
-  final String _getImageUrl = 'https://api.api-ninjas.com/v1/randomimage';
+  HomeCubit() : super(HomeInitial()) {
+    fetchAllData(); // Call fetchAllData in the constructor
+  }
+
+  Map<String, dynamic>? data;
+  final String baseUrl = 'https://newsdata.io/api/1/latest';
+  final String apiKey = 'pub_58129dda715c6a153d787ca5ce9286851b630';
+  final String unsplashApiKey = '6CnSkVtcGhqLn3tRXEh3paafizN0J42R9pBmjt0lcy0';
+  List<CategoryItemModel> categoryList = [];
+  List<CategoryItemModel> sourceList = [];
   List<NewsItemModel> newsList = [];
-  List<NewsItemModel> allNewsList = [];
-  List<NewsItemModel> categoryNewsList = [];
-  List<NewsItemModel> sourceNewsList = [];
-  List<NewsItemModel> searchNewsList = [];
-  List<CategoryItemModel> categories = [];
-  List<CategoryItemModel> sources = [];
+  List<NewsItemModel> categoryNews = [];
+  List<NewsItemModel> sourceNews = [];
+  List<NewsItemModel> bookmarkList = [];
+  List<NewsItemModel> searchResults = [];
 
-  /// جلب كافة الأخبار
-  Future<List<NewsItemModel>> fetchAllNews() async {
-    final url = Uri.parse('$_baseUrl?access_key=$_apiKey');
-    allNewsList = await _getNewsData(url);
-    emit(NewsLoaded());
-    return allNewsList;
+  void fetchAllData() async {
+    emit(HomeInitial()); // بدأ التحميل
+    await getApiNews();
+    await fetchCategories(data);
+    await fetchSources(data);
+    emit(NewsLoaded()); // تم تحميل الأخبار
   }
 
-  
-
-  onMarked() {
-
-  }
-
-  /// جلب الأخبار بناءً على قسم معين
-  Future<List<NewsItemModel>> fetchNewsByCategory(String category) async {
-    final url = Uri.parse('$_baseUrl?access_key=$_apiKey&categories=$category');
-    categoryNewsList = await _getNewsData(url);
-    emit(NewsLoaded());
-    return categoryNewsList;
-  }
-
-  /// جلب الأخبار بناءً على مصدر معين
-  Future<List<NewsItemModel>> fetchNewsBySource(String source) async {
-    final url = Uri.parse('$_baseUrl?access_key=$_apiKey&sources=$source');
-    sourceNewsList = await _getNewsData(url);
-    emit(NewsLoaded());
-    return sourceNewsList;
-  }
-
-  /// البحث عن الأخبار بكلمات معينة
-  Future<List<NewsItemModel>> searchNews(String keywords) async {
-    final url = Uri.parse('$_baseUrl?access_key=$_apiKey&keywords=$keywords');
-    searchNewsList = await _getNewsData(url);
-    emit(NewsLoaded());
-    return searchNewsList;
-  }
-
-  /// دالة مساعدة لتنفيذ الطلبات العامة وتجنب تكرار الكود
-  Future<List<NewsItemModel>> _getNewsData(Uri url) async {
-    try {
-      final response = await http.get(url);
-      if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-        final newsList = data['data'];
-
-        // استخراج الأقسام والمصادر
-        // احفظ الناتج من extractCategories في متغير categories
-        CategoryItemModel categoryItem = await extractCategories(newsList);
-        categories.add(categoryItem);
-        extractSources(newsList);
-
-        return newsList;
-      } else {
-        print('Failed to load news. Status code: ${response.statusCode}');
-        return [];
+  void onMarked(NewsItemModel news) async {
+    news.isBookmarked = !news.isBookmarked;
+    if (news.isBookmarked) {
+      if (!bookmarkList.any((item) => item.urlSource == news.urlSource)) {
+        bookmarkList.add(news);
       }
-    } catch (e) {
-      print('An error occurred: $e');
+    } else {
+      bookmarkList.remove(news);
+    }
+    emit(NewsBookmarked()); // تحديث حالة العلامات المرجعية
+  }
+
+  Future<void> getApiNews() async {
+    final response = await http.get(Uri.parse('$baseUrl?apikey=$apiKey'));
+    log('Response status: $response');
+    if (response.statusCode == 200) {
+      data = json.decode(response.body);
+      for (var news in data?['results'] ?? []) {
+        String category =
+            (news['category'] != null && news['category'].isNotEmpty)
+                ? news['category'][0]
+                : 'general';
+        newsList.add(NewsItemModel(
+          title: news['title'],
+          imageUrl: news['image_url'] ?? '',
+          source: news['source_id'],
+          sourceIcon: fetchSourceIcon(news['link']),
+          time: news['pubDate'],
+          urlSource: news['link'],
+          category: category,
+          isBookmarked: false,
+        ));
+      }
+    } else {
+      emit(NewsError()); // في حال حدوث خطأ
+      log('Error fetching news');
+    }
+  }
+
+  Future<List<NewsItemModel>> fetchNewsByCategory(String category) async {
+    final response =
+        await http.get(Uri.parse('$baseUrl?apikey=$apiKey&category=$category'));
+    if (response.statusCode == 200) {
+      var data = json.decode(response.body);
+      for (var news in data?['results'] ?? []) {
+        String newsCategory =
+            (news['category'] != null && news['category'].isNotEmpty)
+                ? news['category'][0]
+                : 'general';
+        categoryNews.add(NewsItemModel(
+          title: news['title'],
+          imageUrl: news['image_url'] ?? '',
+          source: news['source_id'],
+          sourceIcon: fetchSourceIcon(news['link']),
+          time: news['pubDate'],
+          urlSource: news['link'],
+          category: newsCategory,
+          isBookmarked: false,
+        ));
+      }
+      emit(NewsByCategoryLoaded()); // تم تحميل الأخبار حسب الفئة
+      return categoryNews;
+    } else {
+      emit(NewsError());
+      log('Error fetching news by category');
       return [];
     }
+  }
 
+  Future<List<NewsItemModel>> fetchNewsBySource(String source) async {
+    final response =
+        await http.get(Uri.parse('$baseUrl?apikey=$apiKey&domain=$source'));
+    if (response.statusCode == 200) {
+      var data = json.decode(response.body);
+      for (var news in data?['results'] ?? []) {
+        String newsCategory =
+            (news['category'] != null && news['category'].isNotEmpty)
+                ? news['category'][0]
+                : 'general';
+        sourceNews.add(NewsItemModel(
+          title: news['title'],
+          imageUrl: news['image_url'] ?? '',
+          source: news['source_id'],
+          sourceIcon: fetchSourceIcon(news['link']),
+          time: news['pubDate'],
+          urlSource: news['link'],
+          category: newsCategory,
+          isBookmarked: false,
+        ));
+      }
+      emit(NewsBySourceLoaded()); // تم تحميل الأخبار حسب المصدر
+      return sourceNews;
+    } else {
+      emit(NewsError());
+      log('Error fetching news by source');
+      return [];
+    }
   }
 
   Future<String> fetchCategoryImage(String category) async {
-    final url = Uri.parse(
-        '$_getImageUrl?category=$category'
-        );
-    try {
-      final response = await http.get(url);
-      if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-        return data['urls']['regular'];
-      } else {
-        print('Failed to load image. Status code: ${response.statusCode}');
-        return '';
+    String imagePath = '';
+    final response = await http.get(Uri.parse(
+        'https://api.unsplash.com/photos/random?query=$category&client_id=$unsplashApiKey'));
+    if (response.statusCode == 200) {
+      var data = json.decode(response.body);
+      imagePath = data['urls']['regular'];
+    }
+    return imagePath;
+  }
+
+  Future<void> fetchCategories(data) async {
+    List categories = data?['results'] ?? [];
+    for (var news in categories) {
+      if (news['category'] != null && news['category'].isNotEmpty) {
+        String category = news['category'][0];
+        String image = await fetchCategoryImage(category);
+        var newsListByCategory = await fetchNewsByCategory(category);
+        if (!categoryList.any((item) => item.title == category)) {
+          categoryList.add(CategoryItemModel(
+            title: category,
+            image: image,
+            news: newsListByCategory,
+          ));
+        }
       }
-    } catch (e) {
-      print('An error occurred: $e');
-      return '';
     }
   }
 
-  Future<dynamic> extractCategories(List<dynamic> newsList) async {
-    final Set<String> categorySet = {};
-    for (var news in newsList) {
-      if (news['category'] != null) {
-        categorySet.add(news['category']);
+  String fetchSourceIcon(String url) {
+    final uri = Uri.parse(url);
+    final source = uri.host;
+    final sourceIcon = 'https://logo.clearbit.com/$source';
+    return sourceIcon;
+  }
+
+  Future<void> fetchSources(data) async {
+    List sources = data?['results'] ?? [];
+    for (var news in sources) {
+      String image = fetchSourceIcon(news['link']);
+      var newsListBySource = await fetchNewsBySource(news['source_id']);
+      if (!sourceList.any((item) => item.title == news['source_id'])) {
+        sourceList.add(CategoryItemModel(
+          title: news['source_id'],
+          image: image,
+          news: newsListBySource,
+        ));
       }
-      categories = await Future.wait(categorySet.map((category) async {
-        final imageUrl = await fetchCategoryImage(category);
-        final news = await fetchNewsByCategory(category);
-        return CategoryItemModel(title: category, image: imageUrl, news: news);
-      }));
     }
   }
 
-  extractSources(List<dynamic> newsList) async {
-    String source = '';
-    String sourceIcon = '';
-    for (var news in newsList) {
-      if (news['url'] != null) {
-        final uri = Uri.parse(news['url']);
-        final source = uri.host;
-        return sourceIcon = 'https://logo.clearbit.com/$source';
+  Future<void> searchNews(String query) async {
+    emit(HomeInitial()); // بدأ التحميل
+    final response = await http.get(Uri.parse('$baseUrl?apikey=$apiKey&q=$query'));
+    if (response.statusCode == 200) {
+      var data = json.decode(response.body);
+      searchResults.clear();
+      for (var news in data?['results'] ?? []) {
+        String category =
+            (news['category'] != null && news['category'].isNotEmpty)
+                ? news['category'][0]
+                : 'general';
+        searchResults.add(NewsItemModel(
+          title: news['title'],
+          imageUrl: news['image_url'] ?? '',
+          source: news['source_id'],
+          sourceIcon: fetchSourceIcon(news['link']),
+          time: news['pubDate'],
+          urlSource: news['link'],
+          category: category,
+          isBookmarked: false,
+        ));
       }
-      if (news['source'] != null) {
-        return source = news['source'];
-      }
-      sources.add(
-        CategoryItemModel(
-          title: source,
-          image: sourceIcon,
-          news: await fetchNewsBySource(source),
-        ),
-      );
+      emit(NewsSearched()); // تم تحميل نتائج البحث
+    } else {
+      emit(NewsError());
+      log('Error searching news');
     }
   }
 }

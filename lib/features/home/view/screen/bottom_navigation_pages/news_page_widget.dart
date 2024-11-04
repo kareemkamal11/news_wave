@@ -21,6 +21,7 @@ class NewsPageWidget extends StatelessWidget {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
         var cubit = BlocProvider.of<HomeCubit>(context);
+        BlocProvider.of<HomeCubit>(context);
         return CustomScrollView(
           slivers: [
             SliverToBoxAdapter(
@@ -45,7 +46,9 @@ class NewsPageWidget extends StatelessWidget {
                         urlSource: news[index].urlSource,
                         category: news[index].category,
                         isBookmarked: news[index].isBookmarked,
-                        onMarked: () => cubit.onMarked(),
+                        onMarked: () => cubit.onMarked(
+                          news[index],
+                        ),
                       );
                     },
                     itemCount: news.length,

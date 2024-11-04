@@ -1,3 +1,7 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -31,15 +35,29 @@ class NewsItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Future<bool> checkInternetConnection() async {
+      try {
+        final result = await InternetAddress.lookup(urlSource);
+        return result.isNotEmpty && result[0].rawAddress.isNotEmpty;
+      } on SocketException catch (_) {
+        return false;
+      }
+    }
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
       child: InkWell(
-        onTap: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => NewsReadingScreen(url: urlSource),
-            ),
-          );
+        onTap: () async {
+          if (await checkInternetConnection()) {
+            AppStyles.errorToastr(
+                context, 'No internet connection. Please try again later.');
+          } else {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => NewsReadingScreen(url: urlSource),
+              ),
+            );
+          }
         },
         child: Stack(
           children: [
@@ -54,7 +72,11 @@ class NewsItemWidget extends StatelessWidget {
                 image: DecorationImage(
                   image: imageUrl.isEmpty
                       ? AssetImage(AppAssets.failedImaeg)
-                      : NetworkImage(imageUrl),
+                      : imageUrl.startsWith('http')
+                          ? NetworkImage(imageUrl)
+                          : FileImage(
+                              File(imageUrl),
+                            ),
                   fit: BoxFit.cover,
                 ),
                 borderRadius: BorderRadius.circular(15),
@@ -79,6 +101,10 @@ class NewsItemWidget extends StatelessWidget {
   }
 }
 
+// final Uri uri = url.startsWith('http')
+//     ? Uri.parse(url) // إذا كان من الإنترنت
+//     : Uri.file(url); // إذا كان من التخزين المحلي
+
 class NewsItemDataWidget extends StatelessWidget {
   const NewsItemDataWidget({
     super.key,
@@ -101,7 +127,7 @@ class NewsItemDataWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final timeData =  DateFormat('MM-dd hh:mm');
+    final timeData = DateFormat('MM-dd hh:mm');
     return Container(
       width: 395,
       height: 100,
@@ -146,8 +172,12 @@ class NewsItemDataWidget extends StatelessWidget {
                 width: 25,
                 height: 25,
                 decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.white,
+                    width: 1,
+                  ),
                   borderRadius: BorderRadius.circular(50),
-                  color: Colors.white,
+                  color: Colors.transparent,
                   image: DecorationImage(
                     image: sourceIcon.isEmpty
                         ? AssetImage(
@@ -172,7 +202,7 @@ class NewsItemDataWidget extends StatelessWidget {
               Icon(Icons.access_time_rounded, color: Colors.white),
               SizedBox(width: 2),
               Text(
-               timeData.format(DateTime.parse(time)),
+                timeData.format(DateTime.parse(time)),
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 14,

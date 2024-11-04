@@ -16,9 +16,10 @@ class BookmarkPageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var cubit = BlocProvider.of<HomeCubit>(context);
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
+        var homeCubit = BlocProvider.of<HomeCubit>(context);
+
         return CustomScrollView(
           slivers: [
             SliverToBoxAdapter(
@@ -44,7 +45,9 @@ class BookmarkPageWidget extends StatelessWidget {
                         urlSource: news.urlSource,
                         category: news.category,
                         isBookmarked: news.isBookmarked,
-                        onMarked: () => cubit.onMarked(),
+                        onMarked: () {
+                          homeCubit.onMarked(news);
+                        },
                       );
                     },
                     itemCount: bookmarkList.length,
