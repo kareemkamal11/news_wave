@@ -19,29 +19,4 @@ class NewsItemModel {
     required this.isBookmarked,
   });
 
-  Map<String, dynamic> toMap() {
-    return {
-      'title': title,
-      'imageUrl': imageUrl,
-      'source': source,
-      'sourceIcon': sourceIcon,
-      'time': time,
-      'urlSource': urlSource,
-      'category': category,
-      'isBookmarked': isBookmarked ? 1 : 0,
-    };
-  }
-
-  factory NewsItemModel.fromMap(Map<String, dynamic> map) {
-    return NewsItemModel(
-      title: map['title'],
-      imageUrl: map['imageUrl'],
-      source: map['source'],
-      sourceIcon: map['sourceIcon'],
-      time: map['time'],
-      urlSource: map['urlSource'],
-      category: map['category'],
-      isBookmarked: map['isBookmarked'] == 1,
-    );
-  }
 }

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,7 +26,7 @@ class HomeCubit extends Cubit<HomeState> {
   List<NewsItemModel> searchResults = [];
 
   void fetchAllData() async {
-    emit(HomeInitial()); // بدأ التحميل
+    emit(HomeInitial()); // بدأ التحميل 
     await getApiNews();
     await fetchCategories(data);
     await fetchSources(data);
@@ -47,6 +48,7 @@ class HomeCubit extends Cubit<HomeState> {
   Future<void> getApiNews() async {
     final response = await http.get(Uri.parse('$baseUrl?apikey=$apiKey'));
     log('Response status: $response');
+    log('Response body: ${response.body}');
     if (response.statusCode == 200) {
       data = json.decode(response.body);
       for (var news in data?['results'] ?? []) {
@@ -72,6 +74,7 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   Future<List<NewsItemModel>> fetchNewsByCategory(String category) async {
+    categoryNews.clear();
     final response =
         await http.get(Uri.parse('$baseUrl?apikey=$apiKey&category=$category'));
     if (response.statusCode == 200) {
@@ -93,15 +96,17 @@ class HomeCubit extends Cubit<HomeState> {
         ));
       }
       emit(NewsByCategoryLoaded()); // تم تحميل الأخبار حسب الفئة
+      log(categoryNews.toString());
       return categoryNews;
     } else {
       emit(NewsError());
-      log('Error fetching news by category');
+      log('Error fetching news by category ${response.statusCode}');
       return [];
     }
   }
 
   Future<List<NewsItemModel>> fetchNewsBySource(String source) async {
+    sourceNews.clear();
     final response =
         await http.get(Uri.parse('$baseUrl?apikey=$apiKey&domain=$source'));
     if (response.statusCode == 200) {
@@ -123,6 +128,7 @@ class HomeCubit extends Cubit<HomeState> {
         ));
       }
       emit(NewsBySourceLoaded()); // تم تحميل الأخبار حسب المصدر
+      log(sourceNews.toString());
       return sourceNews;
     } else {
       emit(NewsError());
@@ -184,7 +190,8 @@ class HomeCubit extends Cubit<HomeState> {
 
   Future<void> searchNews(String query) async {
     emit(HomeInitial()); // بدأ التحميل
-    final response = await http.get(Uri.parse('$baseUrl?apikey=$apiKey&q=$query'));
+    final response =
+        await http.get(Uri.parse('$baseUrl?apikey=$apiKey&q=$query'));
     if (response.statusCode == 200) {
       var data = json.decode(response.body);
       searchResults.clear();

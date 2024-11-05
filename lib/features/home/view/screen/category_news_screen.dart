@@ -80,7 +80,7 @@ class CategoryNewsScreen extends StatelessWidget {
                             onMarked: () => cubit.onMarked(categoryNews[index]),
                           );
                         },
-                        itemCount: 10,
+                        itemCount: categoryNews.length,
                       ),
               ],
             ),

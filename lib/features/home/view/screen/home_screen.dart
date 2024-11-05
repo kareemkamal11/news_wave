@@ -43,6 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final PageController pageController = PageController();
 
+
   void onItemTapped(int index) {
     setState(() {
       selected = index;
@@ -55,7 +56,6 @@ class _HomeScreenState extends State<HomeScreen> {
       selected = index;
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -74,11 +74,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   imagePath: imagePath ?? '',
                 ),
                 TopicsPageWidget(
-                  topics: homeCubit.categoryList,
                   imagePath: imagePath ?? '',
                 ),
                 AuthorPageWidget(
-                  authors: homeCubit.sourceList,
                   imagePath: imagePath ?? '',
                 ),
                 BookmarkPageWidget(

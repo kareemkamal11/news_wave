@@ -169,8 +169,8 @@ class NewsItemDataWidget extends StatelessWidget {
           Row(
             children: [
               Container(
-                width: 25,
-                height: 25,
+                width: 20,
+                height: 20,
                 decoration: BoxDecoration(
                   border: Border.all(
                     color: Colors.white,
@@ -197,6 +197,7 @@ class NewsItemDataWidget extends StatelessWidget {
                   fontSize: 15,
                   fontWeight: FontWeight.w700,
                 ),
+                overflow: TextOverflow.ellipsis,
               ),
               SizedBox(width: 15),
               Icon(Icons.access_time_rounded, color: Colors.white),
@@ -215,7 +216,7 @@ class NewsItemDataWidget extends StatelessWidget {
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 14,
-                  fontWeight: FontWeight.w700,
+                  fontWeight: FontWeight.w500,
                 ),
               )
             ],
