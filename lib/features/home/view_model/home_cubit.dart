@@ -36,7 +36,7 @@ class HomeCubit extends Cubit<HomeState> {
   void onMarked(NewsItemModel news) async {
     news.isBookmarked = !news.isBookmarked;
     if (news.isBookmarked) {
-      if (!bookmarkList.any((item) => item.urlSource == news.urlSource)) {
+      if (!bookmarkList.any((item) => item.urlSource == news.urlSource)) { 
         bookmarkList.add(news);
       }
     } else {
@@ -47,8 +47,8 @@ class HomeCubit extends Cubit<HomeState> {
 
   Future<void> getApiNews() async {
     final response = await http.get(Uri.parse('$baseUrl?apikey=$apiKey'));
-    log('Response status: $response');
-    log('Response body: ${response.body}');
+    log('Response status: ${response.request}');
+    log('Response body: ${response.statusCode}');
     if (response.statusCode == 200) {
       data = json.decode(response.body);
       for (var news in data?['results'] ?? []) {

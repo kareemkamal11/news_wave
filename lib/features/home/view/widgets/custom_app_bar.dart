@@ -66,7 +66,9 @@ class AppBarPhotoWidget extends StatelessWidget {
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
         child: InkWell(
-          onTap: () {},
+          onTap: () {
+            Scaffold.of(context).openDrawer();
+          },
           child: Container(
             height: 60,
             width: 60,
